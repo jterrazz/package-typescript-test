@@ -71,6 +71,12 @@ case "$COMMAND" in
         # plus the greeting that server was started with.
         echo "backend ${LITERATE_BACKEND_URL:-unset}"
         ;;
+    backend-fetch)
+        # Fetches one path from that same server and prints the body verbatim.
+        # What comes back is served out of the workdir the runner handed the
+        # child, so a document's `fixture:` decides the answer.
+        node -e 'fetch(process.argv[1]).then((r) => r.text()).then((t) => process.stdout.write(t))' "${LITERATE_BACKEND_URL}${2}"
+        ;;
     env)
         echo "MY_VAR=${MY_VAR:-unset}"
         echo "HOME=${HOME:-unset}"

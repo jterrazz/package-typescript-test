@@ -105,6 +105,8 @@ await specification.cli(bin, {
 });
 ```
 
+Every served child is seeded with `TEST_WORKDIR` — the resolved working directory, the same path `{{workdir}}` holds — after `fixture:` has been copied, so a stub answers out of files the document laid down (`$TEST_WORKDIR/answers/<system>/<file>`). The mapping form overrides it like any other key.
+
 Three doors, one engine:
 
 | Door       | How                                                                                                                                                      |

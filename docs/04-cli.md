@@ -297,6 +297,28 @@ The catch-all matters as much as the canned cases: a stub that shrugs at an unkn
 
 **One fixture per ANSWER of the system, not one per test.** A cluster with things in it, that same cluster holding nothing, and a cluster whose API server is down are three fixtures, not three settings of one — they are three answers to the same question, and choosing between them is choosing what the chain proves. So a new answer is a NEW fixture, never a flag threaded through an existing stub: fixtures layer (a drift stub over a healthy one), which is how one is extended without being made conditional.
 
+**The data-driven form: the script routes, a FILE answers.** When the answer is a document — a JSON payload, a listing, a manifest — heredocs stop being readable and stop layering: two worlds that differ only in what the cluster holds have to differ in the script. So the `case` maps a question to an answer file under `answers/<system>/`, and the script's whole job is routing:
+
+```bash
+#!/bin/sh
+# Route argv to the file that answers it. The ANSWERS are the fixture; this
+# Script only says which one the question maps to.
+answers="${0%/*}/../answers/cluster"
+case "$*" in
+  "get pods -A -o json") file="$answers/pods.json" ;;
+  "get nodes -o json")   file="$answers/nodes.json" ;;
+  *) echo "cluster-stub kubectl: unexpected invocation: $*" >&2; exit 64 ;;
+esac
+[ -f "$file" ] || { echo "cluster-stub kubectl: no answer file at $file" >&2; exit 64; }
+cat "$file"
+```
+
+Two failures, both exit 64, and they say different things: **no route** names the argv nobody described, **a routed file that is absent** names the path the fixture was supposed to carry. Neither may degrade into an empty success — which is also why **an empty answer is an EMPTY file, never a missing one**: "the cluster holds nothing" is a fixture stating `[]`, and a file that is not there is a fixture that forgot to state anything.
+
+Pick by what the stub is standing in for. **Data-driven** when the answer is a document two worlds may legitimately differ on — that difference is then a fixture layered over another, and the script never changes. **`case`** when the stub simulates an action (a write, an exit code, a banner) or answers one constant: a file per constant is a directory of one-liners, and indirection nobody reads.
+
+A served stub — a `serve:` server in a spec document — routes the same way over `$TEST_WORKDIR`, which is where that document's `fixture:` landed: see [Registration — once per app](#registration--once-per-app).
+
 ## Streams, JSON, grep
 
 ```typescript
@@ -450,6 +472,8 @@ export const { cli, cleanup } = await specification.cli(bin, {
 A `serve` entry is spawned with the document's extra `KEY: value` merged into its environment, and its **cwd is the project root** — rule A9's root, the nearest ancestor of the specification file carrying a `package.json` or a `docker/compose.test.yaml`. **In a workspace that is the package's own directory, not the repository root**: a spec at `apps/cli/specs/cli/cli.specification.ts` gives `apps/cli/`, so `command` reads `'bun specs/harness/mcp-server.ts'` and not `'bun apps/cli/specs/harness/mcp-server.ts'`. Pass the runner's `root` option to move it.
 
 `ready` is a regex over the child's output whose **first capture group** is the port the server chose (named or not — it is group 1 either way); the framework injects no `PORT`, the server announces one. `url(port)` builds the URL, and `env` names the variable it is bound to in every run's child.
+
+**`TEST_WORKDIR` is seeded into every served child** — the document's working directory in the resolved form `{{workdir}}` holds and `$WORKDIR` expands to. The servers start after `fixture:` has been copied, so a stub reads the world the document laid down (`$TEST_WORKDIR/answers/dashboard/posts.json`) exactly as a stub binary reads `${0%/*}/../answers/`: a scenario is a layer of files, not a flag threaded through the server. The mapping form overrides it like any other key — `- mcp: { TEST_WORKDIR: /elsewhere }` points that one server somewhere else.
 
 ### The schema
 

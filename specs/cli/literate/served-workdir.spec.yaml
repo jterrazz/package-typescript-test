@@ -1,0 +1,12 @@
+description: a served stub reads the working directory the document laid down
+fixture: workdir-answers/
+serve: echo
+runs:
+    - command: backend-fetch workdir
+      exit: 0
+      stdout: |
+          {{workdir}}
+    - command: backend-fetch answers/dashboard/posts.json
+      exit: 0
+      stdout: |
+          { "posts": [{ "title": "the fixture is the answer" }] }
