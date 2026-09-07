@@ -89,6 +89,38 @@ describe('spec documents — the bridge door (cli.run)', () => {
         expect(result.stdout.comparableText).toMatch(/backend http:\/\/127\.0\.0\.1:\d+\//);
     });
 
+    test('a served stub answers out of the workdir the document laid down', async () => {
+        // Given - the stub reads TEST_WORKDIR: run 1 echoes it, run 2 serves
+        // The file the document's `fixture:` put there
+        const result = await cli.run('served-workdir.spec.yaml');
+
+        // Then - the answer came off disk, from the very cwd the runs share
+        expect(result.file('answers/dashboard/posts.json').content).toContain(
+            'the fixture is the answer',
+        );
+    });
+
+    test("a document's own TEST_WORKDIR wins over the one the runner seeds", async () => {
+        // Given - the mapping form sets the key the runner already seeded
+        const path = scratchFile(
+            [
+                'description: states the workdir its stub reads',
+                'serve:',
+                '  - echo: { TEST_WORKDIR: /elsewhere }',
+                'runs:',
+                '  - command: backend-fetch workdir',
+                '    exit: 0',
+                '    stdout: |',
+                '      /elsewhere',
+                '',
+            ].join('\n'),
+        );
+
+        // Then - the document's value reached the server, not the temp cwd
+        const result = await cli.run(path);
+        expect(result.stdout.text).toBe('/elsewhere\n');
+    });
+
     test('`|` and `|-` are compared byte for byte, final newline included', async () => {
         // Given - two runs, one output ending on a newline and one not
         const result = await cli.run('chomping.spec.yaml');

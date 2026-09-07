@@ -309,14 +309,23 @@ function updates(outcomes: RunOutcome[], scope: CaptureScope) {
 // ── Servers ──
 
 /**
- * Start every server the document names, in declaration order, before the first
- * run. They all stay live for the whole file and are stopped together — one
- * document is one scenario, and its servers are part of its ground.
+ * Start every server the document names, in declaration order, after `fixture:`
+ * has been copied and before the first run. They all stay live for the whole
+ * file and are stopped together — one document is one scenario, and its servers
+ * are part of its ground.
+ *
+ * Every child is seeded with `TEST_WORKDIR`, the resolved working directory the
+ * `{{workdir}}` token holds and `$WORKDIR` expands to. The fixtures are already
+ * on disk when the child starts, so a served stub reads the world the document
+ * laid down exactly as a stub binary reads its own fixture tree: a scenario is
+ * a layer of files, never a flag threaded through the server. A document's
+ * mapping-form env wins over it, key by key.
  */
 async function startServers(
     document: SpecDocument,
     config: SpecificationConfig,
     displayPath: string,
+    workdir: string,
 ): Promise<{ env: CliEnv; stop: () => Promise<void> }> {
     const registry = config.serveRegistry ?? {};
     const started: ServeAdapter[] = [];
@@ -345,7 +354,7 @@ async function startServers(
             { command: registration.command, ready: registration.ready },
             config.root ?? process.cwd(),
             'cli',
-            entry.env,
+            { TEST_WORKDIR: workdir, ...entry.env },
         );
         started.push(adapter);
         try {
@@ -428,8 +437,12 @@ export async function runSpecDocument(options: LiterateRunOptions): Promise<CliR
         cpSync(src, dest, { recursive: true });
     }
 
-    const servers = await startServers(document, config, displayPath);
-    const scope = new CaptureScope(safeRealpath(workDir));
+    // One resolved spelling of the working directory, read by everything that
+    // Names it: `{{workdir}}` in a golden, `$WORKDIR` in an env value, and
+    // `TEST_WORKDIR` in a served stub's environment.
+    const workdir = safeRealpath(workDir);
+    const servers = await startServers(document, config, displayPath, workdir);
+    const scope = new CaptureScope(workdir);
     const env: CliEnv = expandWorkdir(
         {
             ...options.baseEnv,
