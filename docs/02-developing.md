@@ -1,8 +1,56 @@
-# 01 — Getting started
+# 02 — Developing
 
-This chapter takes you from `npm install` to two passing specs: one HTTP API spec backed by a real Postgres container, and one CLI spec running a binary in a fresh temp directory. It also explains the two framework environment variables (`TEST_MODE`, `TEST_UPDATE`) and where the node/compose switch lives.
+How a change is made. The first half is this repository's own loop — the toolchain, the order its gates demand, which file a change opens and what it owes when it lands. The second half is the walkthrough a consuming project follows, from `npm install` to two passing specs.
 
-## Install
+## Changing this package
+
+### The loop
+
+| Task                             | Command                           |
+| -------------------------------- | --------------------------------- |
+| Install dependencies             | `npm install` (or `make install`) |
+| Build the bundle                 | `npm run build`                   |
+| Lint + format + typecheck + knip | `npm run lint`                    |
+| Auto-fix what a fixer can        | `npm run lint:fix`                |
+| Run every suite                  | `npm test`                        |
+| Run the fast suite only          | `npx vitest --run --project fast` |
+| Regenerate the projections       | `npm run docs` (or `make docs`)   |
+
+Each has a `make` alias that installs first, which is what CI calls — [03 — Testing](03-testing.md) § What CI runs.
+
+### The build comes first
+
+`oxlint.config.ts` loads this package's OWN plugin from `./dist/oxlint.js`, and the end-to-end lint specs load it too. Node's type-stripping does not resolve a `.js` specifier back to its `.ts` source, so **`npm run build` must precede `npm run lint`** and must precede the `fast` project. A lint run on a stale bundle judges the previous build's rules.
+
+That config is also where this repository DECLARES its own architecture: `i1-layer-boundaries` ships inert, and `FRAMEWORK_LAYERS` in `oxlint.config.ts` is the enforced statement of the four layers [01 — Architecture](01-architecture.md) describes.
+
+### Which file a change opens
+
+| Changing…                                         | Opens                                                                                       |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| A facet's chain, setups or terminal actions       | `src/core/specification/<facet>/`, over `shared/builder.ts`                                 |
+| What a result exposes                             | `src/core/specification/shared/result/` — accessors stay READ-ONLY                          |
+| A matcher, or update-mode behaviour               | `src/vitest/` — the only place the runner is coupled                                        |
+| An external dependency's adapter                  | `src/integrations/<dep>/`, which imports that dep and `core/` and no more                   |
+| A `{{token}}` or the structural comparison        | `src/core/matching/`                                                                        |
+| The `<case>.spec.yaml` grammar                    | `src/core/literate/` — read by BOTH the runner and the checker                              |
+| A mechanized rule                                 | `src/lint/manifest.ts` **and** its implementation under `src/lint/rules/` or a checker pass |
+| A principle, or a criterion no machine can settle | [12 — Conventions](12-conventions.md), the constitution                                     |
+
+### What a change owes
+
+Four things land in the SAME commit as the change that makes them true.
+
+- **The guard.** Every defect class discovered — in review, from a bug, during a migration — grows the thing that stops it recurring: a static rule, a meta-test, or a runtime refusal. That is rule K1, and it is what keeps the other channels growing instead of decaying. When no channel is possible, the change says so explicitly.
+- **The regenerated projections.** `npm run docs` rewrites all three at once — the API reference under `docs/reference/`, the rule catalogue spliced into [13 — Linting](13-linting.md) and `skills/jterrazz-test/references/rules.md`, and `schema/spec.schema.json`. Never edit one by hand: `npm run lint` runs the sync check and the freshness meta-test, and both fail on a hand edit.
+- **The chapter the behaviour falsified.** A page that still describes the old behaviour is a defect that ships. The corpus is mapped by [`docs/README.md`](README.md).
+- **The skill, when the public surface moved.** `skills/jterrazz-test/` routes agents into these chapters; `README.md` is the vitrine and moves with a public API change too.
+
+## Using the framework
+
+The rest of this chapter takes a consuming project from `npm install` to two passing specs: one HTTP API spec backed by a real Postgres container, and one CLI spec running a binary in a fresh temp directory. It also explains the two framework environment variables (`TEST_MODE`, `TEST_UPDATE`) and where the node/compose switch lives.
+
+### Install
 
 ```bash
 npm install -D @jterrazz/test vitest
@@ -38,7 +86,7 @@ import {
 } from '@jterrazz/test';
 ```
 
-## The shape of every test
+### The shape of every test
 
 A **specification file** (`*.specification.ts`, under `specs/`) creates a runner once per suite. A **test file** imports the runner and writes specs. Every spec is one chain: zero or more setups, then exactly one terminal action, resolving to a typed result you assert on with `expect()`.
 
@@ -52,7 +100,7 @@ specification.mobile(…)  → { mobile, cleanup, udid }               // no doc
 
 The destructured names are canonical — no aliasing (`{ api: myApi }` is an error, rule A3) — and every specification file registers `afterAll(cleanup)` (rule A4).
 
-## First API spec
+### First API spec
 
 ```typescript
 // specs/api/api.specification.ts
@@ -108,7 +156,7 @@ test('creates a user', async () => {
 
 `{{uuid}}` is a placeholder from the unified [token grammar](09-tokens.md) — the response body must contain _a_ UUID there, whatever its value.
 
-## First CLI spec
+### First CLI spec
 
 ```typescript
 // specs/cli/cli.specification.ts
@@ -147,7 +195,7 @@ Done in {{duration}}
 
 Each CLI spec runs in a fresh, empty temp directory. ANSI escape sequences are stripped before comparison by default (rule D6) — you never snapshot color codes.
 
-## vitest config: the preset
+### vitest config: the preset
 
 `vitest.config.ts` starts from `defineSpecConfig()` — the shared preset, imported from the tool subpath beside `literate()`. What you pass is a plain vite/vitest config merged **over** the defaults, so one call gives you the ecosystem's common ground and you still state whatever you want:
 
@@ -174,7 +222,7 @@ export default defineSpecConfig({
 
 `mode` (node vs compose) is a property of `specification.api()` only, and it is **never hardcoded in a specification file** (rule A5) — the switch lives here, via the `TEST_MODE` environment variable. The same HTTP test files run twice: once in-process (fast feedback), once against the real compose stack (end-to-end confidence). Zero switching logic in the specs themselves.
 
-### What the preset sets
+#### What the preset sets
 
 | Setting                          | Value                                   | Why                                                                                                   |
 | -------------------------------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------- |
@@ -209,7 +257,7 @@ export default defineSpecConfig({
 });
 ```
 
-### Migrating a hand-rolled config
+#### Migrating a hand-rolled config
 
 Swap the import, drop what the preset already says, keep what is yours:
 
@@ -240,7 +288,7 @@ Swap the import, drop what the preset already says, keep what is yours:
 
 Then add `.artifacts/` to `.gitignore` and drop `node_modules/.vite` from it if it was listed. A project whose timeouts were LOWER than 30s, or higher, keeps stating them — the preset is a floor to start from, not a ceiling.
 
-## Artefacts live under `.artifacts/`
+### Artefacts live under `.artifacts/`
 
 Every build and test artefact of a project lives under `.artifacts/<tool>/` at the project root — one folder per tool, `dist/` the single exception. One line in `.gitignore` covers all of it, and one `rm -rf .artifacts` is a clean slate.
 
@@ -254,7 +302,7 @@ What this framework writes there:
 
 What it does **not** write there: the fresh temp directory each CLI spec runs in, the per-worker SQLite copies, the profile dirs a browser or a simulator needs. Those are per-RUN scratch, they stay in the OS temp dir, and moving them into the project would only put a `package.json` above a spec that must not see one.
 
-## Framework environment variables
+### Framework environment variables
 
 You set exactly two variables, both prefixed `TEST_` (rule E1). The framework also reads vitest's own `VITEST_POOL_ID` (set by vitest, not you) to isolate each parallel worker's database schema/index:
 
@@ -272,7 +320,7 @@ npx vitest --run -u                   # same as TEST_UPDATE=1
 
 In update mode the framework writes **tokens, not values**: segments already covered by a placeholder are preserved, and values it knows to be dynamic (`{{workdir}}`) are substituted automatically (rule D5).
 
-## Directory layout at a glance
+### Directory layout at a glance
 
 ```
 specs/

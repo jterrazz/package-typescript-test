@@ -1,42 +1,33 @@
 # 12 — Conventions: the constitution
 
-This chapter is the **constitution**: the principles, the enforcement channels, the non-mechanizable criteria, and the design rationales behind the conventions. It is hand-maintained and stable.
+This chapter is the **constitution**: the principles, the non-mechanizable criteria, and the design rationales behind the conventions. It is hand-maintained and stable.
 
 The **mechanized per-rule catalogue** does not live here — it is **generated from the code** (`src/lint/manifest.ts`, where each rule carries its own normative text) into the [13 — Linting](13-linting.md) catalogue and the agent-facing [`skills/jterrazz-test/references/rules.md`](../skills/jterrazz-test/references/rules.md).
 
-This is the **docs-as-code inversion**: the code is the source of truth for the mechanized rules (a rule and its normative text live together, so they cannot drift), and this constitution is the source of truth for the principles. There is **no duplication** — a machine-checkable rule is written once, in the code. The broader repo-structure doctrine this follows (corpus, injection layers, compiler; committed projections vs CI-built presentations) is documented once, in `@jterrazz/typescript`'s **Repo structure** chapter (`docs/06-repo-structure.md`) — its canonical home.
+This is the **docs-as-code inversion**: the code is the source of truth for the mechanized rules (a rule and its normative text live together, so they cannot drift), and this constitution is the source of truth for the principles. There is **no duplication** — a machine-checkable rule is written once, in the code. The broader repo-layout doctrine this follows — a written corpus, thin injection layers, a compiler that projects; committed projections against CI-built presentations — is `jterrazz-studio`'s repo-structure chapter, its canonical home for every language.
 
 Guiding aim: **most enforcement is programmatic, not manual review.**
 
-## How the rules are enforced
-
-Each mechanized rule names **one of four enforcement channels**:
-
-- **static** — the `jterrazz/*` oxlint plugin (one `jterrazz/<rule>` per rule, AST analysis) plus the `conventions` checker step (`dist/checker.js`) for the data fixtures oxlint never visits.
-- **checker** — passes of the same bundled binary that read what oxlint cannot: the `{{token}}` grammar of `_expected/`/`_requests/` fixtures (D4/D4b/D10) and cross-file analyses (a `*.specification.ts` crossed with its tests, or a whole feature tree: C9, B5-by-inference, A7).
-- **runtime** — the framework refuses incorrect usage at execution time, where static analysis abstains (a non-literal argument) or cannot reach (network, container lifecycle): A6 ambiguous binding, A7, B2, B6 injection, D7 strict contracts, I3 `.intercept()` in compose.
-- **process** — review judgement no channel can settle alone: C1 asset-driven grouping, D11 golden-file, K1 retro-propagation.
-
-The **meta-test** channel doubles several of these by running the framework on itself: every `match.*` token has a positive and a negative test (`src/core/matching/`); every fixture written by `TEST_UPDATE=1` round-trips on the next run; the catalogue stays byte-fresh (`src/lint/plugin.test.ts`). The **type channel** covers what the type system guarantees without a dedicated rule (C4 `request`/`response` members, D1 read-only accessors).
+Which CHANNEL holds a given rule — static, checker, runtime, process, and the meta-test and type channels that double them — is not this chapter's: it is [01 — Architecture](01-architecture.md), where the shape of the enforcement machinery is drawn. What follows is what the rules SAY and what a reviewer must judge.
 
 ## The rule families
 
 The catalogue is organized by family. Each family's usage is illustrated in the chapters; the generated catalogue in [13 — Linting](13-linting.md) carries the normative sentence and channel of every rule.
 
-| Group | Scope                                                                | Explained in                                                               |
-| ----- | -------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Group | Scope                                                                | Explained in                                                          |
+| ----- | -------------------------------------------------------------------- | --------------------------------------------------------------------- |
 | A     | Runner creation (constructors, services, root)                       | [02](02-developing.md), [05](05-api.md), [11](11-services.md)         |
-| B     | Spec chains (setups, terminal actions, Given/Then, `job` vocabulary) | [05](05-api.md), [06](06-jobs.md), [07](07-cli.md)                         |
+| B     | Spec chains (setups, terminal actions, Given/Then, `job` vocabulary) | [05](05-api.md), [06](06-jobs.md), [07](07-cli.md)                    |
 | C     | Files & folders per feature                                          | [02](02-developing.md), [08](08-assertions.md), [10](10-contracts.md) |
-| D     | Assertions, tokens, snapshots, strict contracts                      | [08](08-assertions.md), [09](09-tokens.md), [10](10-contracts.md)          |
+| D     | Assertions, tokens, snapshots, strict contracts                      | [08](08-assertions.md), [09](09-tokens.md), [10](10-contracts.md)     |
 | E     | Framework environment variables                                      | [02](02-developing.md)                                                |
 | F     | Imports (single package root) & production protection                | [02](02-developing.md)                                                |
-| W     | Website & mobile specs (scenarios, user-facing elements)             | [14](14-website.md), [15](15-mobile.md)                                    |
-| G     | Infrastructure (compose, isolation, docker-aware)                    | [07](07-cli.md), [11](11-services.md)                                      |
-| H     | Naming recap                                                         | below                                                                      |
-| I     | Source-code architecture (four layers, sibling module tests)         | below · [`AGENTS.md`](../AGENTS.md) for this repo's own layer map          |
-| J     | Hygiene (no `.only`/`.skip`, no arbitrary sleeps)                    | [13](13-linting.md)                                                        |
-| K     | Retro-propagation — every defect class grows its own guard           | below                                                                      |
+| W     | Website & mobile specs (scenarios, user-facing elements)             | [14](14-website.md), [15](15-mobile.md)                               |
+| G     | Infrastructure (compose, isolation, docker-aware)                    | [07](07-cli.md), [11](11-services.md)                                 |
+| H     | Naming recap                                                         | below                                                                 |
+| I     | Source-code architecture (four layers, sibling module tests)         | below · [01](01-architecture.md) for this repo's own layer map        |
+| J     | Hygiene (no `.only`/`.skip`, no arbitrary sleeps)                    | [13](13-linting.md)                                                   |
+| K     | Retro-propagation — every defect class grows its own guard           | below                                                                 |
 
 ## The reach of the conventions
 
@@ -119,7 +110,7 @@ Two further rules decide WHERE a fixture lives, and they are the same question a
 
 Family I governs the source tree rather than the spec tree, and it splits in two.
 
-**The layer map is the project's to declare.** `i1-layer-boundaries` ships **inert**: this package cannot know another repository's architecture, so the rule enforces nothing until the project states its own layers in `oxlint.config.ts`. This repository declares `FRAMEWORK_LAYERS` there — `core/` with zero external imports, `integrations/` each importing only its own dependency plus core, `vitest/` holding all runner coupling, `lint/` with zero runtime imports — and documents that layout in [`AGENTS.md`](../AGENTS.md), the brief a session reads before touching `src/`.
+**The layer map is the project's to declare.** `i1-layer-boundaries` ships **inert**: this package cannot know another repository's architecture, so the rule enforces nothing until the project states its own layers in `oxlint.config.ts`. What THIS repository declares there, and why each sanctioned edge exists, is [01 — Architecture](01-architecture.md) — a consumer's own map is its own chapter's, written the same way.
 
 **The test-file rules need no declaration.** I2 (a module's test is its sibling) and I4 (no `vi.mock`, `__mocks__/`, `__fixtures__/` or data-asset imports under `src/`) hold in any repository that adopts this preset — they are part of the floor described above, not of the layer map. A module's typed fixtures are a sibling `<file>.fixtures.ts`, as the naming recap says.
 
@@ -131,10 +122,10 @@ Family I governs the source tree rather than the spec tree, and it splits in two
 
 ## Pitfalls
 
-- **Treating these docs as the spec.** They explain and illustrate; this constitution and the generated catalogue ([13 — Linting](13-linting.md)) decide. When you find a discrepancy in the docs, fix the docs (see the maintenance note in [README](README.md)).
+- **Treating these docs as the spec.** They explain and illustrate; this constitution and the generated catalogue ([13 — Linting](13-linting.md)) decide. When you find a discrepancy in the docs, fix the docs in the same change — [02 — Developing](02-developing.md) § What a change owes.
 - **Editing the generated catalogue by hand.** The [13 — Linting](13-linting.md) catalogue and `skills/jterrazz-test/references/rules.md` are GENERATED from `src/lint/manifest.ts` — a hand edit is overwritten by the next `npm run docs` and fails the freshness meta-test. Change the rule's text in the code; regenerate.
 - **Adding a mechanized rule to the constitution.** A machine-checkable rule lives in the code (its `meta.docs` / the manifest), not in this chapter. The constitution holds principles and non-mechanizable criteria only.
 
 ## Related
 
-[README](README.md) · [02 — Developing](02-developing.md) · [08 — Assertions](08-assertions.md) · [13 — Linting](13-linting.md)
+[01 — Architecture](01-architecture.md) · [02 — Developing](02-developing.md) · [03 — Testing](03-testing.md) · [08 — Assertions](08-assertions.md) · [13 — Linting](13-linting.md)
