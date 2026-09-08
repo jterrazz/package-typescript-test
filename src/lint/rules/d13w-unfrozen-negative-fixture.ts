@@ -88,7 +88,7 @@ export const d13wUnfrozenNegativeFixture: LintRule = {
         docs: RULE_DOCS['d13w-unfrozen-negative-fixture'],
         messages: {
             unfrozenNegativeFixture:
-                'This toMatch asserts a mismatch (wrapped in expect(…).toThrow/.rejects) — pass { frozen: true } so TEST_UPDATE=1 never overwrites the deliberately-wrong fixture (D13 — see docs/10-linting.md).',
+                'This toMatch asserts a mismatch (wrapped in expect(…).toThrow/.rejects) — pass { frozen: true } so TEST_UPDATE=1 never overwrites the deliberately-wrong fixture (D13 — see docs/13-linting.md).',
         },
         type: 'suggestion',
     },

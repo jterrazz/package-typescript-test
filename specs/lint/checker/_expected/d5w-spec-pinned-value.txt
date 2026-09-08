@@ -1,1 +1,1 @@
-[warn] specs/widget/stamps.spec.yaml:6: "2026-07-17T10:00:00.000Z" is not fixed by any fixture: or stdin: of this document — write {{string}} (d5w-spec-pinned-value — see docs/10-linting.md)
+[warn] specs/widget/stamps.spec.yaml:6: "2026-07-17T10:00:00.000Z" is not fixed by any fixture: or stdin: of this document — write {{string}} (d5w-spec-pinned-value — see docs/13-linting.md)

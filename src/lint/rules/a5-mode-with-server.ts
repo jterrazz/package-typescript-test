@@ -33,7 +33,7 @@ export const a5ModeWithServer: LintRule = {
         docs: RULE_DOCS['a5-mode-with-server'],
         messages: {
             hardcodedMode:
-                '`mode` must not be hardcoded when `server` is defined — the node/compose switch lives in vitest.config.ts via `env: { TEST_MODE: "compose" }` (A5 — see docs/10-linting.md).',
+                '`mode` must not be hardcoded when `server` is defined — the node/compose switch lives in vitest.config.ts via `env: { TEST_MODE: "compose" }` (A5 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

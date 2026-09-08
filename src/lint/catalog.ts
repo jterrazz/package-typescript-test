@@ -4,7 +4,7 @@ import { catalog, type CatalogEntry, FAMILIES } from './manifest.js';
  * The conventions-catalogue generator — renders the mechanized rule catalogue
  * FROM `manifest.ts` (the source of truth) into two committed projections:
  *
- * - the full four-channel catalogue inside `docs/10-linting.md`, spliced between
+ * - the full four-channel catalogue inside `docs/13-linting.md`, spliced between
  *   GENERATED markers ({@link spliceCatalog}) — grouped by convention family;
  * - `skills/jterrazz-test/references/rules.md` — the agent-facing rule reference
  *   ({@link renderRules}).
@@ -16,7 +16,7 @@ import { catalog, type CatalogEntry, FAMILIES } from './manifest.js';
  * `docs/reference/` projection.
  */
 
-/** Markers delimiting the generated catalogue inside `docs/10-linting.md`. */
+/** Markers delimiting the generated catalogue inside `docs/13-linting.md`. */
 export const DOCS_START =
     '<!-- GENERATED:catalog — do not edit by hand; run `npm run docs`. Source: src/lint/manifest.ts -->';
 export const DOCS_END = '<!-- /GENERATED:catalog -->';
@@ -94,7 +94,7 @@ function catalogueSections(): string[] {
 }
 
 /**
- * The full four-channel catalogue spliced into `docs/10-linting.md` between the
+ * The full four-channel catalogue spliced into `docs/13-linting.md` between the
  * GENERATED markers — a counts line, then every family section. The surrounding
  * chapter prose is hand-maintained; only this region is generated.
  */
@@ -111,7 +111,7 @@ export function spliceCatalog(existing: string): string {
     const end = existing.indexOf(DOCS_END);
     if (start === -1 || end === -1) {
         throw new Error(
-            `docs/10-linting.md is missing the GENERATED:catalog markers (${DOCS_START} … ${DOCS_END})`,
+            `docs/13-linting.md is missing the GENERATED:catalog markers (${DOCS_START} … ${DOCS_END})`,
         );
     }
     return existing.slice(0, start) + renderDocsCatalog() + existing.slice(end + DOCS_END.length);
@@ -139,7 +139,7 @@ export function renderRules(): string {
     const parts = [
         RULES_HEADER,
         '# `@jterrazz/test` — rule reference',
-        '> Generated from `src/lint/manifest.ts` by `npm run docs` — every mechanized convention across the four enforcement channels (statique · checker · runtime · process). Rule ids are stable: cite them in suppressions and reviews. Narrative lives in `docs/09-conventions.md` (the constitution) and `docs/10-linting.md` (the static plugin + checker).',
+        '> Generated from `src/lint/manifest.ts` by `npm run docs` — every mechanized convention across the four enforcement channels (statique · checker · runtime · process). Rule ids are stable: cite them in suppressions and reviews. Narrative lives in `docs/12-conventions.md` (the constitution) and `docs/13-linting.md` (the static plugin + checker).',
         ...sections,
     ];
     return `${parts.join('\n\n')}\n`;

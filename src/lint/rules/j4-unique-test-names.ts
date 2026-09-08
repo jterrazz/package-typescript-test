@@ -38,7 +38,7 @@ export const j4UniqueTestNames: LintRule = {
         docs: RULE_DOCS['j4-unique-test-names'],
         messages: {
             duplicate:
-                'Duplicate test name "{{name}}" in this file — the test name is the sole description of behaviour, so it must be unique (J4 — see docs/10-linting.md).',
+                'Duplicate test name "{{name}}" in this file — the test name is the sole description of behaviour, so it must be unique (J4 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

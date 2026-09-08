@@ -39,7 +39,7 @@ export const d8wTextBypass: LintRule = {
         docs: RULE_DOCS['d8w-text-bypass'],
         messages: {
             textBypass:
-                'expect(x.text).{{matcher}}(…) asserts on the raw stream — prefer the typed accessor subject (expect(x)) so the token grammar and fixture resolution apply (D8 — see docs/10-linting.md).',
+                'expect(x.text).{{matcher}}(…) asserts on the raw stream — prefer the typed accessor subject (expect(x)) so the token grammar and fixture resolution apply (D8 — see docs/13-linting.md).',
         },
         type: 'suggestion',
     },

@@ -55,7 +55,7 @@ export const b2KnownFixtureMarker: LintRule = {
         docs: RULE_DOCS['b2-known-fixture-marker'],
         messages: {
             unknownMarker:
-                'Unknown fixture marker "{{marker}}" — known markers: {{known}}. A path without a marker is feature-local (B2 — see docs/10-linting.md).',
+                'Unknown fixture marker "{{marker}}" — known markers: {{known}}. A path without a marker is feature-local (B2 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

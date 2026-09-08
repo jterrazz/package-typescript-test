@@ -145,6 +145,6 @@ describe('describeAmbiguity', () => {
 
         // Then - an agent reading the failure can find the full rule
         expect(message).toContain('CONVENTIONS W3');
-        expect(message).toContain('docs/11-website.md#designating-exactly-one-element');
+        expect(message).toContain('docs/14-website.md#designating-exactly-one-element');
     });
 });

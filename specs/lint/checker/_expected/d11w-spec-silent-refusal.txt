@@ -1,1 +1,1 @@
-[warn] specs/widget/refuses.spec.yaml:3: exit: 1 with no stdout: and no stderr: — golden the words the refusal printed (d11w-spec-silent-refusal — see docs/10-linting.md)
+[warn] specs/widget/refuses.spec.yaml:3: exit: 1 with no stdout: and no stderr: — golden the words the refusal printed (d11w-spec-silent-refusal — see docs/13-linting.md)

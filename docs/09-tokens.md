@@ -1,4 +1,4 @@
-# 06 — Tokens: dynamic values in fixtures
+# 09 — Tokens: dynamic values in fixtures
 
 Real systems generate UUIDs, timestamps, ports, and paths. The framework handles them with **one unified token grammar** (rule D4): the same `{{token}}` vocabulary works in every fixture file, and the same vocabulary is available in code as `match.*`. The vocabulary is fixed — 21 tokens, defined, tested, and documented in the package — and an unknown token in a fixture is an error, not a silent literal.
 
@@ -9,7 +9,7 @@ Real systems generate UUIDs, timestamps, ports, and paths. The framework handles
 | HTTP responses | `_expected/*.http`                                                                 | **body and headers**                                                                                           |
 | JSON snapshots | `_expected/*.json`                                                                 | any string value                                                                                               |
 | Text snapshots | `_expected/*.txt` (and other text files under `_expected/`)                        | anywhere in the text                                                                                           |
-| Spec documents | `<case>.spec.yaml`, beside the spec ([04](04-cli.md#spec-documents--casespecyaml)) | both streams of every run, and `files:` assertions — **never the description or the command**, which are prose |
+| Spec documents | `<case>.spec.yaml`, beside the spec ([07](07-cli.md#spec-documents--casespecyaml)) | both streams of every run, and `files:` assertions — **never the description or the command**, which are prose |
 
 ```http
 ### _expected/order-created.http — tokens in a header AND the body
@@ -236,4 +236,4 @@ accept native JSON numbers.
 
 ## Related
 
-[05 — Assertions](05-assertions.md) · [02 — API specs](02-api.md) · [04 — CLI specs](04-cli.md)
+[08 — Assertions](08-assertions.md) · [05 — API specs](05-api.md) · [07 — CLI specs](07-cli.md)

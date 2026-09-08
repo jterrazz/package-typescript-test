@@ -44,7 +44,7 @@ export const w1ScenarioPure: LintRule = {
         docs: RULE_DOCS['w1-scenario-pure'],
         messages: {
             expectInScenario:
-                'No expect() inside a scenario — the scenario is the When; assert the final state on the returned result in the Then (W1 — see docs/10-linting.md).',
+                'No expect() inside a scenario — the scenario is the When; assert the final state on the returned result in the Then (W1 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

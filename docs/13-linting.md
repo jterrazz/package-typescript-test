@@ -1,8 +1,8 @@
-# 10 — Linting
+# 13 — Linting
 
 > **Maintenance note** — This documentation is living: when implementation or usage reveals a new edge case, document it in the relevant chapter in the same change.
 
-`@jterrazz/test` ships the static enforcement channel of its own conventions: an **oxlint JS plugin** (`@jterrazz/test/oxlint`, the one sanctioned subpath) carrying every **statique** convention rule (the constitution is [09 — Conventions](09-conventions.md)), plus a small **conventions checker** binary for the file kinds oxlint never visits (data fixtures). Together they make the conventions programmatic instead of review-borne.
+`@jterrazz/test` ships the static enforcement channel of its own conventions: an **oxlint JS plugin** (`@jterrazz/test/oxlint`, the one sanctioned subpath) carrying every **statique** convention rule (the constitution is [12 — Conventions](12-conventions.md)), plus a small **conventions checker** binary for the file kinds oxlint never visits (data fixtures). Together they make the conventions programmatic instead of review-borne.
 
 ## Enabling the plugin
 
@@ -257,7 +257,7 @@ The rule catalogue is **generated from the code**, not hand-maintained. Each rul
 - the **full catalogue above**, spliced between GENERATED markers in this file;
 - **[`skills/jterrazz-test/references/rules.md`](../skills/jterrazz-test/references/rules.md)** — the same set, trimmed for agents.
 
-The narrative constitution lives in [09 — Conventions](09-conventions.md): principles, the enforcement channels, non-mechanizable criteria, and design rationales — no per-rule normative lines, so there is no duplication. A meta-test (`src/lint/plugin.test.ts`) guards the contract: **freshness** (re-running the generator reproduces both committed projections byte-for-byte) and **completeness** (every shipped rule carries `meta.docs`; every manifest entry maps to a plugin rule, a checker pass, or a documented runtime/process rule), plus the standing E2E inventory (every rule has a `specs/lint/**` spec + fixture pair).
+The narrative constitution lives in [12 — Conventions](12-conventions.md): principles, the enforcement channels, non-mechanizable criteria, and design rationales — no per-rule normative lines, so there is no duplication. A meta-test (`src/lint/plugin.test.ts`) guards the contract: **freshness** (re-running the generator reproduces both committed projections byte-for-byte) and **completeness** (every shipped rule carries `meta.docs`; every manifest entry maps to a plugin rule, a checker pass, or a documented runtime/process rule), plus the standing E2E inventory (every rule has a `specs/lint/**` spec + fixture pair).
 
 ## Doc typechecking (meta-test)
 
@@ -302,4 +302,4 @@ Oxlint's JS-plugin API is **alpha** (oxlint 1.74): the plugin declares the small
 
 ## Related
 
-[09 — Conventions](09-conventions.md) · [06 — Tokens](06-tokens.md) · [01 — Getting started](01-getting-started.md)
+[12 — Conventions](12-conventions.md) · [09 — Tokens](09-tokens.md) · [02 — Developing](02-developing.md)

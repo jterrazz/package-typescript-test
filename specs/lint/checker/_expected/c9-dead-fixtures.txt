@@ -1,3 +1,3 @@
-[error] specs/widget/_seeds/dead.sql: dead fixture — no test literal in widget references _seeds/dead.sql (C9 — see docs/10-linting.md)
+[error] specs/widget/_seeds/dead.sql: dead fixture — no test literal in widget references _seeds/dead.sql (C9 — see docs/13-linting.md)
 
 conventions checker: 1 error(s) found under {{workdir}}

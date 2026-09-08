@@ -38,7 +38,7 @@ export const j1NoOnlySkip: LintRule = {
         docs: RULE_DOCS['j1-no-only-skip'],
         messages: {
             forbidden:
-                'Committed `{{runner}}.{{modifier}}` is not allowed (J1 — see docs/10-linting.md). Remove it before committing.',
+                'Committed `{{runner}}.{{modifier}}` is not allowed (J1 — see docs/13-linting.md). Remove it before committing.',
         },
         type: 'problem',
     },

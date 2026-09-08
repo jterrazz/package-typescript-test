@@ -1,6 +1,6 @@
 # Dynamic values — the `{{token}}` grammar
 
-Operative reference. Prose + the canonical accepted form of every token: [docs/06-tokens.md](../../docs/06-tokens.md).
+Operative reference. Prose + the canonical accepted form of every token: [docs/09-tokens.md](../../docs/09-tokens.md).
 
 One vocabulary, one engine — the same tokens work in `_expected/*.http` (body AND headers), `_expected/*.json`, text snapshots, tree-snapshot file contents, and in code via `match.*`. The vocabulary is frozen (shared with the runtime matcher, so the fixture and code channels cannot drift).
 

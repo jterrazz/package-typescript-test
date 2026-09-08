@@ -1,4 +1,4 @@
-# 05 — Assertions: the reference
+# 08 — Assertions: the reference
 
 Every assertion goes through `expect()` (rule D1). The framework auto-registers its matchers into vitest and types them **by subject**: a table subject only offers table matchers, a stream subject only stream matchers — the wrong pairing is a compile error. Result accessors are read-only; there are no assertion methods on accessors (`result.stdout.toContain(…)` does not exist — the methods live on `expect()`).
 
@@ -24,7 +24,7 @@ Everything else is synchronous — `await`-ing it is harmless but wrong-by-conve
 
 `_expected/` is flat: `toMatch('help.txt')` → `_expected/help.txt`. A slash in the name creates a subfolder: `toMatch('build/verbose.txt')` → `_expected/build/verbose.txt` (rule C5). The extension is part of the name and mandatory (`'help.txt'`, never `'help'`) — except for tree snapshots, which are directories: `toMatch('shop-scaffold')` → `_expected/shop-scaffold/` (rule C6).
 
-All file-based comparisons understand the [`{{token}}` grammar](06-tokens.md); all code-side dynamic values use `match.*`.
+All file-based comparisons understand the [`{{token}}` grammar](09-tokens.md); all code-side dynamic values use `match.*`.
 
 ## Scalars — native `expect`
 
@@ -43,7 +43,7 @@ Plain values take vitest's native matchers. No framework matcher exists (or is n
 | `result.stdout.text`                | `string`       | `expect(result.stdout.text).toBe('')` — raw capture, never stripped                                          |
 | `result.containerIds`               | `string[]`     | `expect(result.containerIds).toHaveLength(1)`                                                                |
 | `await result.filesystem.files()`   | `string[]`     | `expect(await result.filesystem.files()).toContain('shoply.lock')`                                           |
-| `await cli.run('<case>.spec.yaml')` | `CliResult`    | the document asserts itself; the LAST run's result comes back — [04](04-cli.md#spec-documents--casespecyaml) |
+| `await cli.run('<case>.spec.yaml')` | `CliResult`    | the document asserts itself; the LAST run's result comes back — [07](07-cli.md#spec-documents--casespecyaml) |
 
 ## `result.response` — HTTP response (api)
 
@@ -88,7 +88,7 @@ await expect(result.table('orders', { database: 'db' })).toMatchRows({
 });
 ```
 
-Cell values are literals or [`match.*`](06-tokens.md) matchers — including `match.ref(name)` to capture a generated value in one table and require equality in another, and `match.ref(name, { not: other })` to require inequality:
+Cell values are literals or [`match.*`](09-tokens.md) matchers — including `match.ref(name)` to capture a generated value in one table and require equality in another, and `match.ref(name, { not: other })` to require inequality:
 
 ```typescript
 await expect(result.table('orders', { database: 'db' })).toMatchRows({
@@ -112,7 +112,7 @@ Streams are compared **after ANSI stripping** (rule D6); the raw capture stays a
 | `toMatch('x.txt')`    | sync       | `_expected/x.txt` | `expect(result.stdout).toMatch('help.txt')`                       |
 | `toContain('needle')` | sync       | —                 | `expect(result.stderr).toContain("Unknown command 'frobnicate'")` |
 
-`toMatch` on a stream is a full-text snapshot; the fixture may contain any [token](06-tokens.md) (`{{semver}}`, `{{duration}}`, `{{workdir}}`, …). Token matching decides **pass or fail** only: `textEquals` resolves the placeholders to determine whether the output matches. The rendered failure, though, is a **literal** line-by-line diff (`Output mismatch (name)`, `- Expected` / `+ Received`) of the fixture text against the stripped output — tokens are not resolved in the diff, so a fixture line `Done in {{duration}}` is printed verbatim on the expected side whenever any line diverges, even if the duration itself matched.
+`toMatch` on a stream is a full-text snapshot; the fixture may contain any [token](09-tokens.md) (`{{semver}}`, `{{duration}}`, `{{workdir}}`, …). Token matching decides **pass or fail** only: `textEquals` resolves the placeholders to determine whether the output matches. The rendered failure, though, is a **literal** line-by-line diff (`Output mismatch (name)`, `- Expected` / `+ Received`) of the fixture text against the stripped output — tokens are not resolved in the diff, so a fixture line `Done in {{duration}}` is printed verbatim on the expected side whenever any line diverges, even if the duration itself matched.
 
 > `toMatch` on **any accessor subject** (`result.stdout`, `result.json`, `result.response`, `result.directory`, `result.filesystem`) takes a **fixture name with its extension** (`'help.txt'`), never a regex. Passing a `RegExp` — the instinct carried over from vitest-native `toMatch` — throws immediately, naming the subject and pointing at the escape hatch: for a raw-regex assertion, reach through to the text with `expect(result.stdout.text).toMatch(/re/)`.
 
@@ -127,7 +127,7 @@ expect(result.stdout.grep('products/broken.yaml')).toMatch('broken-block.txt'); 
 
 ## `text(value)` — any string as a stream subject
 
-`text(value)` wraps an arbitrary string in the same `TextAccessor` streams surface, anchored on the calling test's directory via the same caller-detection the runners use. It promotes an ad-hoc string — most often a thrown **error message**, a checker line, or a report — into a first-class snapshot subject: ANSI is stripped before comparison (raw stays on `.text`), the [`{{token}}`](06-tokens.md) grammar applies to the fixture, and `.grep()` composes exactly as on a captured stream.
+`text(value)` wraps an arbitrary string in the same `TextAccessor` streams surface, anchored on the calling test's directory via the same caller-detection the runners use. It promotes an ad-hoc string — most often a thrown **error message**, a checker line, or a report — into a first-class snapshot subject: ANSI is stripped before comparison (raw stays on `.text`), the [`{{token}}`](09-tokens.md) grammar applies to the fixture, and `.grep()` composes exactly as on a captured stream.
 
 The product surface of a test framework **is** its error messages and reports; golden them in full instead of reconstructing them with a cluster of `toContain` probes.
 
@@ -221,7 +221,7 @@ The runner handle itself also exposes a `docker(containerId)` reader (returned b
 
 ## Update mode and frozen fixtures
 
-`TEST_UPDATE=1` (or `vitest -u`) rewrites a mismatching `toMatch` fixture from the actual output instead of failing — token-preserving, see [06 — Tokens](06-tokens.md#update-mode-tokens-are-preserved). This is the right default for a **positive** golden, and exactly wrong for a **negative** one: a fixture that is _deliberately wrong_ (its diff is the behaviour under test) or _deliberately missing_ (its error is the behaviour under test) gets silently overwritten, and the assertion stops testing anything.
+`TEST_UPDATE=1` (or `vitest -u`) rewrites a mismatching `toMatch` fixture from the actual output instead of failing — token-preserving, see [09 — Tokens](09-tokens.md#update-mode-tokens-are-preserved). This is the right default for a **positive** golden, and exactly wrong for a **negative** one: a fixture that is _deliberately wrong_ (its diff is the behaviour under test) or _deliberately missing_ (its error is the behaviour under test) gets silently overwritten, and the assertion stops testing anything.
 
 Pass `{ frozen: true }` to opt a single fixture out — it is then never written in update mode, and a frozen mismatch/missing fixture still throws:
 
@@ -249,4 +249,4 @@ expect(text(message)).toMatch('errors/wrong-body-error.txt'); // the error golde
 
 ## Related
 
-[02 — API specs](02-api.md) · [04 — CLI specs](04-cli.md) · [06 — Tokens](06-tokens.md) · [09 — Conventions](09-conventions.md)
+[05 — API specs](05-api.md) · [07 — CLI specs](07-cli.md) · [09 — Tokens](09-tokens.md) · [12 — Conventions](12-conventions.md)

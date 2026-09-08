@@ -2,7 +2,7 @@
 
 # `@jterrazz/test` — rule reference
 
-> Generated from `src/lint/manifest.ts` by `npm run docs` — every mechanized convention across the four enforcement channels (statique · checker · runtime · process). Rule ids are stable: cite them in suppressions and reviews. Narrative lives in `docs/09-conventions.md` (the constitution) and `docs/10-linting.md` (the static plugin + checker).
+> Generated from `src/lint/manifest.ts` by `npm run docs` — every mechanized convention across the four enforcement channels (statique · checker · runtime · process). Rule ids are stable: cite them in suppressions and reviews. Narrative lives in `docs/12-conventions.md` (the constitution) and `docs/13-linting.md` (the static plugin + checker).
 
 ## A — Création des runners
 

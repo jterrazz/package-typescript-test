@@ -646,7 +646,7 @@ export function checkSpecConventions(text: string, rel: string, path: string): T
     return findings.map(({ line, message, rule, severity }) => ({
         file: rel,
         line,
-        message: `${rel}:${line}: ${message} (${rule} — see docs/10-linting.md)`,
+        message: `${rel}:${line}: ${message} (${rule} — see docs/13-linting.md)`,
         severity,
     }));
 }
@@ -678,7 +678,7 @@ export function checkSpecDescriptionsUnique(rootDir: string): TokenViolation[] {
         violations.push({
             file: rel,
             line: document.descriptionLine,
-            message: `${rel}:${document.descriptionLine}: "${document.description}" is already the description of ${first} — two documents of one directory cannot share a title (j4-spec-description-unique — see docs/10-linting.md)`,
+            message: `${rel}:${document.descriptionLine}: "${document.description}" is already the description of ${first} — two documents of one directory cannot share a title (j4-spec-description-unique — see docs/13-linting.md)`,
             severity: 'error',
         });
     }

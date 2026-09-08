@@ -37,7 +37,7 @@ vérifie_.
 | jobs    | ✅ handler appelé directement                 | ❌ à concevoir — trigger externalisé (item 2)   |
 | cli     | ✅ binaire hôte + workdir tmp isolé           | ❌ à la demande — binaire dans l'image (item 4) |
 
-À inscrire dans la constitution (`docs/09-conventions.md`, famille A) au moment où le premier item
+À inscrire dans la constitution (`docs/12-conventions.md`, famille A) au moment où le premier item
 ci-dessous se livre : « le mode ne change pas ce qu'on teste, il change quel processus le
 fait ».
 

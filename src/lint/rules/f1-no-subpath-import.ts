@@ -40,7 +40,7 @@ export const f1NoSubpathImport: LintRule = {
         docs: RULE_DOCS['f1-no-subpath-import'],
         messages: {
             subpath:
-                'Import from "@jterrazz/test", not "{{source}}" — internal subpaths do not exist (F1 — see docs/10-linting.md). Published subpaths, exempt everywhere: {{published}}.',
+                'Import from "@jterrazz/test", not "{{source}}" — internal subpaths do not exist (F1 — see docs/13-linting.md). Published subpaths, exempt everywhere: {{published}}.',
         },
         type: 'problem',
     },

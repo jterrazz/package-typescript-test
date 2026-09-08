@@ -112,7 +112,7 @@ export const d12wResponseBodyProbe: LintRule = {
         defaultOptions: [{ threshold: DEFAULT_THRESHOLD }],
         messages: {
             bodyProbeCluster:
-                "{{count}} body probes in one test — this wants a full golden: expect(result.response).toMatch('x.http') (D12 — see docs/10-linting.md).",
+                "{{count}} body probes in one test — this wants a full golden: expect(result.response).toMatch('x.http') (D12 — see docs/13-linting.md).",
         },
         schema: [
             {

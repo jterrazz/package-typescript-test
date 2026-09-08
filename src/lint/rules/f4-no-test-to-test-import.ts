@@ -28,7 +28,7 @@ export const f4NoTestToTestImport: LintRule = {
         docs: RULE_DOCS['f4-no-test-to-test-import'],
         messages: {
             testToTest:
-                'A test file must not import another test file ("{{source}}") — share data via a *.fixtures.ts neighbour or a *.specification.ts runner (F4 — see docs/10-linting.md).',
+                'A test file must not import another test file ("{{source}}") — share data via a *.fixtures.ts neighbour or a *.specification.ts runner (F4 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

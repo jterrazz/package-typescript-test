@@ -57,7 +57,7 @@ export const j5LowercaseTitle: LintRule = {
         docs: RULE_DOCS['j5-lowercase-title'],
         messages: {
             uppercase:
-                'A {{runner}}() title must start lowercase — the test name is a prose fragment, not a sentence (J5 — see docs/10-linting.md).',
+                'A {{runner}}() title must start lowercase — the test name is a prose fragment, not a sentence (J5 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

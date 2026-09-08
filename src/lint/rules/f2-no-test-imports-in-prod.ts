@@ -46,7 +46,7 @@ export const f2NoTestImportsInProd: LintRule = {
         docs: RULE_DOCS['f2-no-test-imports-in-prod'],
         messages: {
             testImport:
-                'Production code must not import the test artefact "{{source}}" — test imports are only legal from specs/, *.test.ts, *.fixtures.ts or *.specification.ts (F2 — see docs/10-linting.md).',
+                'Production code must not import the test artefact "{{source}}" — test imports are only legal from specs/, *.test.ts, *.fixtures.ts or *.specification.ts (F2 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

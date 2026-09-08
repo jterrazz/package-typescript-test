@@ -4,7 +4,7 @@ import type { RuleDoc } from './types.js';
  * The rule manifest — the single source of truth for the mechanized conventions
  * catalogue (docs-as-code inversion, phase 2).
  *
- * The constitution (`docs/09-conventions.md`) holds only principles, the
+ * The constitution (`docs/12-conventions.md`) holds only principles, the
  * enforcement channels, process rules and design rationales. Every per-rule
  * normative sentence lives HERE, next to (or on) the code that enforces it. Four
  * channels are assembled into one {@link catalog}:
@@ -19,7 +19,7 @@ import type { RuleDoc } from './types.js';
  *   (`PROCESS_RULES`).
  *
  * The catalogue generator (`catalog.ts` / `dist/catalog.js`) reads this manifest
- * to (re)write the full four-channel catalogue in `docs/10-linting.md` and the
+ * to (re)write the full four-channel catalogue in `docs/13-linting.md` and the
  * agent-facing `skills/jterrazz-test/references/rules.md`. `plugin.test.ts`
  * guards freshness and completeness.
  *

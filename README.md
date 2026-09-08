@@ -87,7 +87,7 @@ runs:
           Error: no my-cli.yaml in the current directory
 ```
 
-Same engine as the chain, same `{{token}}` grammar, same `TEST_UPDATE=1` — which rewrites each run's exit code and streams, and nothing else. A JSON Schema ships at `@jterrazz/test/schema` so an editor validates as you type. Full grammar: [docs/04-cli.md](docs/04-cli.md#spec-documents--casespecyaml).
+Same engine as the chain, same `{{token}}` grammar, same `TEST_UPDATE=1` — which rewrites each run's exit code and streams, and nothing else. A JSON Schema ships at `@jterrazz/test/schema` so an editor validates as you type. Full grammar: [docs/07-cli.md](docs/07-cli.md#spec-documents--casespecyaml).
 
 ### Website testing (browser)
 
@@ -210,7 +210,7 @@ A `JobHandle` is `{ name: string; execute: () => Promise<void> }`.
 
 ### `specification.cli(bin, { root?, services?, docker?, transform?, env?, serve? })`
 
-Runs a command binary against fixture projects in fresh temp directories. `env` (named environment sets) and `serve` (named servers) are the registries a [`<case>.spec.yaml`](docs/04-cli.md#spec-documents--casespecyaml) names by word. With `services`, connection URLs are injected into the child env automatically: `<KEY>_URL` per record key (CONSTANT_CASE at camelCase boundaries — `analyticsDb` → `ANALYTICS_DB_URL`), plus `DATABASE_URL` (exactly one SQL database) and `REDIS_URL` (exactly one redis). `.env()` overrides; `null` unsets.
+Runs a command binary against fixture projects in fresh temp directories. `env` (named environment sets) and `serve` (named servers) are the registries a [`<case>.spec.yaml`](docs/07-cli.md#spec-documents--casespecyaml) names by word. With `services`, connection URLs are injected into the child env automatically: `<KEY>_URL` per record key (CONSTANT_CASE at camelCase boundaries — `analyticsDb` → `ANALYTICS_DB_URL`), plus `DATABASE_URL` (exactly one SQL database) and `REDIS_URL` (exactly one redis). `.env()` overrides; `null` unsets.
 
 ```typescript
 export const { cli, cleanup } = await specification.cli('my-migrate-tool', {
@@ -239,7 +239,7 @@ const page = await website.visit('/', async (visitor) => {
 });
 ```
 
-The handle destructures to `{ website, cleanup, url }` — no `docker`, no `orchestrator`. `.visit()` needs playwright (`npm install -D playwright && npx playwright install chromium`) — an optional peer dependency, only loaded when a spec actually renders a page. Full reference: [docs/11-website.md](docs/11-website.md).
+The handle destructures to `{ website, cleanup, url }` — no `docker`, no `orchestrator`. `.visit()` needs playwright (`npm install -D playwright && npx playwright install chromium`) — an optional peer dependency, only loaded when a spec actually renders a page. Full reference: [docs/14-website.md](docs/14-website.md).
 
 ### `specification.mobile({ app, device, backend?, root? })`
 
@@ -258,7 +258,7 @@ const result = await mobile.open('news://events', async (visitor) => {
 });
 ```
 
-The handle destructures to `{ mobile, cleanup, udid }` (plus `backendUrl` with `backend: { port? }` — a declared stub backend whose URL the CALLER wires into its own bundler env; the framework never touches Metro). The element vocabulary is the website facet's, unchanged — `button`, `field`, `content`, `testId`, `within` — landmarks excepted (an iOS screen has no ARIA regions; they refuse at runtime). Requires the app installed on the simulator plus the optional peers: `npm install -D appium webdriverio && npx appium driver install xcuitest`. Full reference: [docs/12-mobile.md](docs/12-mobile.md).
+The handle destructures to `{ mobile, cleanup, udid }` (plus `backendUrl` with `backend: { port? }` — a declared stub backend whose URL the CALLER wires into its own bundler env; the framework never touches Metro). The element vocabulary is the website facet's, unchanged — `button`, `field`, `content`, `testId`, `within` — landmarks excepted (an iOS screen has no ARIA regions; they refuse at runtime). Requires the app installed on the simulator plus the optional peers: `npm install -D appium webdriverio && npx appium driver install xcuitest`. Full reference: [docs/15-mobile.md](docs/15-mobile.md).
 
 ### Root auto-discovery
 
@@ -284,7 +284,7 @@ export default defineSpecConfig({
 | `test.testTimeout` / `hookTimeout` | `30_000`                                               |
 | `test.exclude`                     | vitest's defaults **+** `**/_fixtures/**`              |
 
-Nothing else: `fileParallelism`, `reporters`, `environment` and every `include` stay yours. Inline `projects` inherit the same defaults (vitest gives a project nothing from the root), arrays are concatenated rather than replaced, and scalars you state win. Full walkthrough, including migrating a hand-rolled config: [docs/01-getting-started.md](docs/01-getting-started.md#vitest-config-the-preset).
+Nothing else: `fileParallelism`, `reporters`, `environment` and every `include` stay yours. Inline `projects` inherit the same defaults (vitest gives a project nothing from the root), arrays are concatenated rather than replaced, and scalars you state win. Full walkthrough, including migrating a hand-rolled config: [docs/02-developing.md](docs/02-developing.md#vitest-config-the-preset).
 
 Every artefact a run produces lands under `.artifacts/<tool>/` — one `.gitignore` line, one `rm -rf`. Per-run scratch (a CLI spec's temp cwd, a browser profile) stays in the OS temp dir.
 
@@ -378,7 +378,7 @@ Location: /orders/{{uuid#order}}
 }
 ```
 
-See [docs/06-tokens.md](docs/06-tokens.md) for the canonical accepted form of every token.
+See [docs/09-tokens.md](docs/09-tokens.md) for the canonical accepted form of every token.
 
 ## Contracts
 
@@ -413,7 +413,7 @@ export const withRatesDown = () =>
 const result = await jobs.intercept(pipeline).trigger('nightly-report');
 ```
 
-Selection is first-match, one queue for every facet: `times` bounds how often a contract serves (omitted = unlimited, so retries and re-renders replay it), `required: true` fails the chain if it was never requested. Provider string filters are **exact** — the loose forms are explicit (`RegExp`, `match.includes('…')`). Failure simulation: `openai.error(429)`, `anthropic.timeout()`, `openai.malformed('not json')`. MSW ships as a direct dependency — no separate install. Full chapter: [docs/07-contracts.md](docs/07-contracts.md).
+Selection is first-match, one queue for every facet: `times` bounds how often a contract serves (omitted = unlimited, so retries and re-renders replay it), `required: true` fails the chain if it was never requested. Provider string filters are **exact** — the loose forms are explicit (`RegExp`, `match.includes('…')`). Failure simulation: `openai.error(429)`, `anthropic.timeout()`, `openai.malformed('not json')`. MSW ships as a direct dependency — no separate install. Full chapter: [docs/10-contracts.md](docs/10-contracts.md).
 
 ## Docker-aware CLIs
 
@@ -442,7 +442,7 @@ test('deploy spawns a labelled container', async () => {
 
 `docker/compose.test.yaml` is the single source of truth for test infrastructure; `docker/<service>/init.sql` runs when the corresponding service starts. Parallel isolation is automatic per vitest worker: postgres clones a schema, redis assigns a database index, sqlite copies the template file, compose mode gets a dedicated project.
 
-`sqlite()` caches its schema template inside the project — `.artifacts/vitest/sqlite/template-<key>.sqlite` — so two checkouts never share one, and workers racing for a cold cache wait for the one that is building rather than all building at once. Details: [docs/08-services.md](docs/08-services.md#where-the-template-lives).
+`sqlite()` caches its schema template inside the project — `.artifacts/vitest/sqlite/template-<key>.sqlite` — so two checkouts never share one, and workers racing for a cold cache wait for the one that is building rather than all building at once. Details: [docs/11-services.md](docs/11-services.md#where-the-template-lives).
 
 ## Mocking utilities
 
@@ -457,7 +457,7 @@ import { mockOf, mockOfDate } from '@jterrazz/test';
 
 ## Conventions
 
-Normative rules live in the constitution ([docs/09-conventions.md](docs/09-conventions.md)); the generated per-rule catalogue is [docs/10-linting.md](docs/10-linting.md). A facet (`specs/<facet>/`) carries its runner(s) at its root and holds domain folders; the folder follows the assets:
+Normative rules live in the constitution ([docs/12-conventions.md](docs/12-conventions.md)); the generated per-rule catalogue is [docs/13-linting.md](docs/13-linting.md). A facet (`specs/<facet>/`) carries its runner(s) at its root and holds domain folders; the folder follows the assets:
 
 ```
 specs/<facet>/                  # api | jobs | cli | integrations | lint
@@ -477,7 +477,7 @@ Every test contains `// Given -` and `// Then -` comments (always both; `// When
 
 ### Convention enforcement — the shipped lint plugin
 
-These conventions are not just prose: the package ships an oxlint plugin (`@jterrazz/test/oxlint`) with ~40 AST rules, plus a `jterrazz-test-check` binary (the conventions checker) that reads the data fixtures and cross-file relationships oxlint cannot. Wire the plugin into your `oxlint.config.ts` and run `jterrazz-test-check specs` in CI — the full four-channel catalogue (each rule, its channel and rationale) is generated into [docs/10-linting.md](docs/10-linting.md).
+These conventions are not just prose: the package ships an oxlint plugin (`@jterrazz/test/oxlint`) with ~40 AST rules, plus a `jterrazz-test-check` binary (the conventions checker) that reads the data fixtures and cross-file relationships oxlint cannot. Wire the plugin into your `oxlint.config.ts` and run `jterrazz-test-check specs` in CI — the full four-channel catalogue (each rule, its channel and rationale) is generated into [docs/13-linting.md](docs/13-linting.md).
 
 ## Requirements
 

@@ -1,6 +1,6 @@
 # API specs — `specification.api()`
 
-Operative reference. Prose + examples: [docs/02-api.md](../../docs/02-api.md). Assertions: [docs/05-assertions.md](../../docs/05-assertions.md). Tokens: [references/tokens.md](tokens.md). Mocking: [references/contracts.md](contracts.md).
+Operative reference. Prose + examples: [docs/05-api.md](../../docs/05-api.md). Assertions: [docs/08-assertions.md](../../docs/08-assertions.md). Tokens: [references/tokens.md](tokens.md). Mocking: [references/contracts.md](contracts.md).
 
 ## Runner (in `*.specification.ts`, `afterAll(cleanup)`)
 

@@ -258,29 +258,29 @@ export const c4ContractShape: LintRule = {
         docs: RULE_DOCS['c4-contract-shape'],
         messages: {
             badName:
-                'Contract unit "{{base}}" must be named <kebab-name>.ts — the folder already carries the provider (C4 — see docs/10-linting.md).',
+                'Contract unit "{{base}}" must be named <kebab-name>.ts — the folder already carries the provider (C4 — see docs/13-linting.md).',
             badProviderDir:
-                'contracts/{{entry}}/ is not a provider directory — a contracts/ root holds only http/, openai/, anthropic/ and *.contracts.ts files (C4 — see docs/10-linting.md).',
+                'contracts/{{entry}}/ is not a provider directory — a contracts/ root holds only http/, openai/, anthropic/ and *.contracts.ts files (C4 — see docs/13-linting.md).',
             missingComposite:
-                'Contract facade "{{base}}" has no default export — it must default-export the composed world (C4 — see docs/10-linting.md).',
+                'Contract facade "{{base}}" has no default export — it must default-export the composed world (C4 — see docs/13-linting.md).',
             missingDefault:
-                'Contract unit "{{base}}" has no default export — a unit default-exports `defineContract(...)` or a factory returning one (C4 — see docs/10-linting.md).',
+                'Contract unit "{{base}}" has no default export — a unit default-exports `defineContract(...)` or a factory returning one (C4 — see docs/13-linting.md).',
             notDefineContract:
-                'The default export of a contract unit must be `defineContract(...)` or a factory returning a contract (C4 — see docs/10-linting.md).',
+                'The default export of a contract unit must be `defineContract(...)` or a factory returning a contract (C4 — see docs/13-linting.md).',
             notDefineContracts:
-                'The default export of "{{base}}" must be built from `defineContracts(...)` (or a composition re-export) (C4 — see docs/10-linting.md).',
+                'The default export of "{{base}}" must be built from `defineContracts(...)` (or a composition re-export) (C4 — see docs/13-linting.md).',
             providerEntry:
-                'contracts/{{provider}}/{{child}} is neither a *.ts contract nor a *.response.json payload (C4 — see docs/10-linting.md).',
+                'contracts/{{provider}}/{{child}} is neither a *.ts contract nor a *.response.json payload (C4 — see docs/13-linting.md).',
             providerMismatch:
-                'This contract lives in contracts/{{provider}}/ but its request is a `{{declared}}.*` builder — the folder carries the provider (C4 — see docs/10-linting.md).',
+                'This contract lives in contracts/{{provider}}/ but its request is a `{{declared}}.*` builder — the folder carries the provider (C4 — see docs/13-linting.md).',
             providerSubfolder:
-                'contracts/{{provider}}/{{child}}/ is nested — a provider folder is flat (C4 — see docs/10-linting.md).',
+                'contracts/{{provider}}/{{child}}/ is nested — a provider folder is flat (C4 — see docs/13-linting.md).',
             rootEntry:
-                'contracts/{{entry}} is not a *.contracts.ts facade — data files live in a provider folder next to their contract (C4 — see docs/10-linting.md).',
+                'contracts/{{entry}} is not a *.contracts.ts facade — data files live in a provider folder next to their contract (C4 — see docs/13-linting.md).',
             rootFile:
-                'Contract file "{{base}}" sits at the contracts/ root, which holds only *.contracts.ts facades — a unit contract belongs in http/, openai/ or anthropic/ (C4 — see docs/10-linting.md).',
+                'Contract file "{{base}}" sits at the contracts/ root, which holds only *.contracts.ts facades — a unit contract belongs in http/, openai/ or anthropic/ (C4 — see docs/13-linting.md).',
             tooDeep:
-                'Contract file "{{base}}" is nested deeper than contracts/<provider>/ (C4 — see docs/10-linting.md).',
+                'Contract file "{{base}}" is nested deeper than contracts/<provider>/ (C4 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

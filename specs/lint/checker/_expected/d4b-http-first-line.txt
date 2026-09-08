@@ -1,3 +1,3 @@
-[error] specs/widget/_requests/create.http:1: a _requests/*.http file must start with a request line "METHOD /path" (D4b — see docs/10-linting.md)
+[error] specs/widget/_requests/create.http:1: a _requests/*.http file must start with a request line "METHOD /path" (D4b — see docs/13-linting.md)
 
 conventions checker: 1 error(s) found under {{workdir}}

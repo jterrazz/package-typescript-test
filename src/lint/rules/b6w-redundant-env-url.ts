@@ -43,7 +43,7 @@ export const b6wRedundantEnvUrl: LintRule = {
         docs: RULE_DOCS['b6w-redundant-env-url'],
         messages: {
             redundant:
-                '.env({ {{key}}: ….connectionString }) is redundant — the framework already injects <KEY>_URL (and the DATABASE_URL/REDIS_URL aliases) for every service (B6 — see docs/10-linting.md).',
+                '.env({ {{key}}: ….connectionString }) is redundant — the framework already injects <KEY>_URL (and the DATABASE_URL/REDIS_URL aliases) for every service (B6 — see docs/13-linting.md).',
         },
         type: 'suggestion',
     },

@@ -13,7 +13,7 @@ import { renderRules, spliceCatalog } from './catalog.js';
  *
  * Regenerates three committed projections:
  *
- * - the full four-channel catalogue inside `docs/10-linting.md` (between the
+ * - the full four-channel catalogue inside `docs/13-linting.md` (between the
  *   GENERATED markers), from `src/lint/manifest.ts`;
  * - the agent-facing rule reference `skills/jterrazz-test/references/rules.md`,
  *   from the same manifest;
@@ -25,7 +25,7 @@ import { renderRules, spliceCatalog } from './catalog.js';
  */
 const root = resolve(process.argv[2] ?? '.');
 
-const docsPath = resolve(root, 'docs/10-linting.md');
+const docsPath = resolve(root, 'docs/13-linting.md');
 const rulesPath = resolve(root, 'skills/jterrazz-test/references/rules.md');
 const schemaPath = resolve(root, 'schema/spec.schema.json');
 
@@ -41,5 +41,5 @@ mkdirSync(dirname(schemaPath), { recursive: true });
 writeFileSync(schemaPath, renderSchema());
 
 console.log(
-    'conventions catalogue: regenerated docs/10-linting.md + skills/jterrazz-test/references/rules.md + schema/spec.schema.json',
+    'conventions catalogue: regenerated docs/13-linting.md + skills/jterrazz-test/references/rules.md + schema/spec.schema.json',
 );

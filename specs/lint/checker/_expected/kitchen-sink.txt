@@ -1,9 +1,9 @@
 [error] specs/grammar/_expected/out.txt:1: unknown token {{string}} — the D4 vocabulary is frozen (known: any, base64, date, duration, email, float, hex, int, ip, iso8601, number, path, port, semver, sha, string, time, ulid, url, uuid, workdir)
 [error] specs/grammar/_expected/out.txt:2: unknown token {{string}} — the D4 vocabulary is frozen (known: any, base64, date, duration, email, float, hex, int, ip, iso8601, number, path, port, semver, sha, string, time, ulid, url, uuid, workdir)
-[error] specs/grammar/_requests/req.http:1: a _requests/*.http file must start with a request line "METHOD /path" (D4b — see docs/10-linting.md)
-[warn] specs/grammar/_requests/req.http:3: token {{string}} in a _requests/ file — requests are inputs, never matched; tokens are not validated here (D10 — see docs/10-linting.md)
-[error] specs/grammar/_seeds/dead.sql: dead fixture — no test literal in grammar references _seeds/dead.sql (C9 — see docs/10-linting.md)
-[error] specs/docker/docker.test.ts:8: result of docker-aware runner "dockerCli" must be bound with `await using` so its containers are disposed (B5 — see docs/10-linting.md)
-[error] specs/db/db.test.ts:8: .seed() must pass { database } — 2 SQL databases are declared (A7 — see docs/10-linting.md)
+[error] specs/grammar/_requests/req.http:1: a _requests/*.http file must start with a request line "METHOD /path" (D4b — see docs/13-linting.md)
+[warn] specs/grammar/_requests/req.http:3: token {{string}} in a _requests/ file — requests are inputs, never matched; tokens are not validated here (D10 — see docs/13-linting.md)
+[error] specs/grammar/_seeds/dead.sql: dead fixture — no test literal in grammar references _seeds/dead.sql (C9 — see docs/13-linting.md)
+[error] specs/docker/docker.test.ts:8: result of docker-aware runner "dockerCli" must be bound with `await using` so its containers are disposed (B5 — see docs/13-linting.md)
+[error] specs/db/db.test.ts:8: .seed() must pass { database } — 2 SQL databases are declared (A7 — see docs/13-linting.md)
 
 conventions checker: 6 error(s) found under {{workdir}}
