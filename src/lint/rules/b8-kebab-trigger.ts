@@ -30,7 +30,7 @@ export const b8KebabTrigger: LintRule = {
         docs: RULE_DOCS['b8-kebab-trigger'],
         messages: {
             notKebab:
-                'Job name "{{name}}" must be a stable kebab-case identifier (e.g. "nightly-report") — it is a contract between the app and its tests (B8 — see docs/10-linting.md).',
+                'Job name "{{name}}" must be a stable kebab-case identifier (e.g. "nightly-report") — it is a contract between the app and its tests (B8 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

@@ -1,6 +1,6 @@
 # Website specs — `specification.website()`
 
-Operative reference. Prose + examples: [docs/11-website.md](../../docs/11-website.md). Assertions: [docs/05-assertions.md](../../docs/05-assertions.md). Tokens: [references/tokens.md](tokens.md).
+Operative reference. Prose + examples: [docs/14-website.md](../../docs/14-website.md). Assertions: [docs/08-assertions.md](../../docs/08-assertions.md). Tokens: [references/tokens.md](tokens.md).
 
 Tests a rendered site — raw HTTP surface via `.fetch()`, rendered surface via `.visit()` in a real chromium. No services, no seeding, no `mode` — this facet is about a browser, not a database.
 

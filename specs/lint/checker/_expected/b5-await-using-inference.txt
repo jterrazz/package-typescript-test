@@ -1,3 +1,3 @@
-[error] specs/widget/widget.test.ts:8: result of docker-aware runner "dockerCli" must be bound with `await using` so its containers are disposed (B5 — see docs/10-linting.md)
+[error] specs/widget/widget.test.ts:8: result of docker-aware runner "dockerCli" must be bound with `await using` so its containers are disposed (B5 — see docs/13-linting.md)
 
 conventions checker: 1 error(s) found under {{workdir}}

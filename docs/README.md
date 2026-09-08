@@ -22,18 +22,18 @@ test('creates a user', async () => {
 
 | Chapter                                       | Covers                                                                                                                       |
 | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| [01 — Getting started](01-getting-started.md) | Install, peer dependencies, first API spec, first CLI spec, vitest projects config, `TEST_MODE` / `TEST_UPDATE`              |
-| [02 — API specs](02-api.md)                   | `specification.api()`: options, node vs compose, `.http` request files, inline actions, seeds, intercepts                    |
-| [03 — Jobs specs](03-jobs.md)                 | `specification.jobs()`: in-process pipelines, `.trigger()`, provider error cases                                             |
-| [04 — CLI specs](04-cli.md)                   | `specification.cli()`: `.exec()`, `.env()`, fixtures and projects, `<case>.spec.yaml` documents, services, Docker-aware mode |
-| [05 — Assertions](05-assertions.md)           | The reference: every matcher, grouped by subject, sync/async rules, `toMatch` resolution, diffs                              |
-| [06 — Tokens](06-tokens.md)                   | The `{{token}}` grammar: all 21 tokens, `#ref` captures, `match.*`, update mode                                              |
-| [07 — Contracts](07-contracts.md)             | `defineContract` / `defineContracts`, the facade layout, selection (`times`, `required`), provider builders                  |
-| [08 — Services](08-services.md)               | `postgres` / `redis` / `sqlite`, the services record, compose conventions, per-worker isolation                              |
-| [09 — Conventions](09-conventions.md)         | The constitution: principles, the four enforcement channels, process rules, naming recap, retro-propagation (K)              |
-| [10 — Linting](10-linting.md)                 | The oxlint plugin (`@jterrazz/test/oxlint`): rule catalogue, `recommendedRules`, the D4 conventions checker                  |
-| [11 — Website specs](11-website.md)           | `specification.website()`: `.fetch()` / `.visit()`, visit scenarios, the element vocabulary, the `head` golden               |
-| [12 — Mobile specs](12-mobile.md)             | `specification.mobile()`: `.open()`, simulator resolution, open scenarios, the shared vocabulary, the `screen` golden        |
+| [02 — Developing](02-developing.md) | Install, peer dependencies, first API spec, first CLI spec, vitest projects config, `TEST_MODE` / `TEST_UPDATE`              |
+| [05 — API specs](05-api.md)                   | `specification.api()`: options, node vs compose, `.http` request files, inline actions, seeds, intercepts                    |
+| [06 — Jobs specs](06-jobs.md)                 | `specification.jobs()`: in-process pipelines, `.trigger()`, provider error cases                                             |
+| [07 — CLI specs](07-cli.md)                   | `specification.cli()`: `.exec()`, `.env()`, fixtures and projects, `<case>.spec.yaml` documents, services, Docker-aware mode |
+| [08 — Assertions](08-assertions.md)           | The reference: every matcher, grouped by subject, sync/async rules, `toMatch` resolution, diffs                              |
+| [09 — Tokens](09-tokens.md)                   | The `{{token}}` grammar: all 21 tokens, `#ref` captures, `match.*`, update mode                                              |
+| [10 — Contracts](10-contracts.md)             | `defineContract` / `defineContracts`, the facade layout, selection (`times`, `required`), provider builders                  |
+| [11 — Services](11-services.md)               | `postgres` / `redis` / `sqlite`, the services record, compose conventions, per-worker isolation                              |
+| [12 — Conventions](12-conventions.md)         | The constitution: principles, the four enforcement channels, process rules, naming recap, retro-propagation (K)              |
+| [13 — Linting](13-linting.md)                 | The oxlint plugin (`@jterrazz/test/oxlint`): rule catalogue, `recommendedRules`, the D4 conventions checker                  |
+| [14 — Website specs](14-website.md)           | `specification.website()`: `.fetch()` / `.visit()`, visit scenarios, the element vocabulary, the `head` golden               |
+| [15 — Mobile specs](15-mobile.md)             | `specification.mobile()`: `.open()`, simulator resolution, open scenarios, the shared vocabulary, the `screen` golden        |
 
 ## Decisions
 

@@ -1,3 +1,3 @@
-[error] specs/widget: domain directory has ground subdirs (_expected) but no *.test.ts or *.spec.yaml (C9 — see docs/10-linting.md)
+[error] specs/widget: domain directory has ground subdirs (_expected) but no *.test.ts or *.spec.yaml (C9 — see docs/13-linting.md)
 
 conventions checker: 1 error(s) found under {{workdir}}

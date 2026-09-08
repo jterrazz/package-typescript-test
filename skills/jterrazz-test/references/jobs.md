@@ -1,6 +1,6 @@
 # Jobs specs — `specification.jobs()`
 
-Operative reference. Prose + examples: [docs/03-jobs.md](../../docs/03-jobs.md). Mocking provider calls: [references/contracts.md](contracts.md). Tokens: [references/tokens.md](tokens.md).
+Operative reference. Prose + examples: [docs/06-jobs.md](../../docs/06-jobs.md). Mocking provider calls: [references/contracts.md](contracts.md). Tokens: [references/tokens.md](tokens.md).
 
 Background jobs run **in-process by definition** — no HTTP server, no `mode`. `specification.jobs()` never reads `TEST_MODE`; its services always start via testcontainers.
 
@@ -36,7 +36,7 @@ const result = await jobs.seed('pending.sql').intercept(classifyProduct).trigger
 await expect(result.table('products')).toMatchRows({ columns: ['status'], rows: [['classified']] });
 ```
 
-`BaseResult` carries the shared accessors (`table`, `file`, `directory`) — see [docs/05-assertions.md](../../docs/05-assertions.md).
+`BaseResult` carries the shared accessors (`table`, `file`, `directory`) — see [docs/08-assertions.md](../../docs/08-assertions.md).
 
 ## Folder layout
 

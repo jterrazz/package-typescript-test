@@ -48,9 +48,9 @@ export const j2NoSleepInSpecs: LintRule = {
     meta: {
         docs: RULE_DOCS['j2-no-sleep-in-specs'],
         messages: {
-            sleep: 'No arbitrary sleeps in specs — synchronise via `waitFor` or the framework (J2 — see docs/10-linting.md).',
+            sleep: 'No arbitrary sleeps in specs — synchronise via `waitFor` or the framework (J2 — see docs/13-linting.md).',
             timersImport:
-                'No timer-based sleeps in specs — synchronise via `waitFor` or the framework (J2 — see docs/10-linting.md).',
+                'No timer-based sleeps in specs — synchronise via `waitFor` or the framework (J2 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

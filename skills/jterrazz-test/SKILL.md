@@ -32,11 +32,11 @@ Two things travel under one name, and their scopes are not the same: the framewo
 **The CONVENTIONS bind EVERY test file of a jterrazz repository** — that plain unit test and that component test included. They are the repository's rules, not the framework's, and they hold with no `@jterrazz/test` import in the file:
 
 - **Sibling naming (I2)** — the test of `<file>.ts` is `<file>.test.ts` next to it; a misnamed `.test.ts`, or a `__tests__/` folder, is an error.
-- **Given/Then (B4)** — every test carries a `// Given -` line then a `// Then -` line, both, in that order. Two `--fix` hazards mangle a marker while the lint stays green: a marker is EXACTLY one line (`capitalized-comments` capitalises a wrapped continuation mid-sentence), and it goes between STATEMENTS, never between two `const` declarations `one-var` can fuse into one chain. Both are worked in [docs/10](../../docs/10-linting.md).
+- **Given/Then (B4)** — every test carries a `// Given -` line then a `// Then -` line, both, in that order. Two `--fix` hazards mangle a marker while the lint stays green: a marker is EXACTLY one line (`capitalized-comments` capitalises a wrapped continuation mid-sentence), and it goes between STATEMENTS, never between two `const` declarations `one-var` can fuse into one chain. Both are worked in [docs/13](../../docs/13-linting.md).
 - **No test doubles under `src/` (I4)** — `vi.mock`, `__mocks__/`, `__fixtures__/` and data-asset imports from a `.test.ts` are forbidden there; a module's typed fixtures are a sibling `<file>.fixtures.ts`.
 - **Hygiene (J)** — no committed `.only` / `.skip`, at least one `expect()` per `test()`, no two literal test names alike in a file, a lowercase title.
 
-The full list, with ids to cite, is [references/rules.md](references/rules.md); the reasoning is the constitution, [docs/09](../../docs/09-conventions.md).
+The full list, with ids to cite, is [references/rules.md](references/rules.md); the reasoning is the constitution, [docs/12](../../docs/12-conventions.md).
 
 **Trigger on:** writing or editing any `*.test.ts` / `*.specification.ts` in a jterrazz repository, a plain unit test included; imports of `@jterrazz/test`; prompts about specification runners, seeds, fixtures, contracts, tokens, directory snapshots, rendered-page visit scenarios, simulator screen scenarios, or the Given/Then convention.
 
@@ -48,18 +48,18 @@ Load the one reference that matches the task; each also names the docs chapter c
 
 | Task                                                | Reference                                                      | Prose chapter                                                                 |
 | --------------------------------------------------- | -------------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Writing **API** specs (HTTP, node vs compose)       | [references/api.md](references/api.md)                         | [docs/02-api.md](../../docs/02-api.md)                                        |
-| Writing **jobs** specs (background pipelines)       | [references/jobs.md](references/jobs.md)                       | [docs/03-jobs.md](../../docs/03-jobs.md)                                      |
-| Writing **CLI** specs (exec, env, fixtures, docker) | [references/cli.md](references/cli.md)                         | [docs/04-cli.md](../../docs/04-cli.md)                                        |
-| Writing **spec documents** (`<case>.spec.yaml`)     | [references/cli.md](references/cli.md)                         | [docs/04-cli.md](../../docs/04-cli.md)                                        |
-| Writing **website** specs (fetch, visit, scenarios) | [references/website.md](references/website.md)                 | [docs/11-website.md](../../docs/11-website.md)                                |
-| Writing **mobile** specs (open, simulator, screens) | [references/mobile.md](references/mobile.md)                   | [docs/12-mobile.md](../../docs/12-mobile.md)                                  |
-| **Dynamic values** / the `{{token}}` grammar        | [references/tokens.md](references/tokens.md)                   | [docs/06-tokens.md](../../docs/06-tokens.md)                                  |
-| **Declaring** what an LLM / HTTP call replies       | [references/contracts.md](references/contracts.md)             | [docs/07-contracts.md](../../docs/07-contracts.md)                            |
+| Writing **API** specs (HTTP, node vs compose)       | [references/api.md](references/api.md)                         | [docs/05-api.md](../../docs/05-api.md)                                        |
+| Writing **jobs** specs (background pipelines)       | [references/jobs.md](references/jobs.md)                       | [docs/06-jobs.md](../../docs/06-jobs.md)                                      |
+| Writing **CLI** specs (exec, env, fixtures, docker) | [references/cli.md](references/cli.md)                         | [docs/07-cli.md](../../docs/07-cli.md)                                        |
+| Writing **spec documents** (`<case>.spec.yaml`)     | [references/cli.md](references/cli.md)                         | [docs/07-cli.md](../../docs/07-cli.md)                                        |
+| Writing **website** specs (fetch, visit, scenarios) | [references/website.md](references/website.md)                 | [docs/14-website.md](../../docs/14-website.md)                                |
+| Writing **mobile** specs (open, simulator, screens) | [references/mobile.md](references/mobile.md)                   | [docs/15-mobile.md](../../docs/15-mobile.md)                                  |
+| **Dynamic values** / the `{{token}}` grammar        | [references/tokens.md](references/tokens.md)                   | [docs/09-tokens.md](../../docs/09-tokens.md)                                  |
+| **Declaring** what an LLM / HTTP call replies       | [references/contracts.md](references/contracts.md)             | [docs/10-contracts.md](../../docs/10-contracts.md)                            |
 | Weird failures / **pitfalls**                       | [references/troubleshooting.md](references/troubleshooting.md) | Pitfalls sections of each chapter                                             |
-| **Rule ids** (lint plugin + checker)                | [references/rules.md](references/rules.md) (generated)         | [docs/09](../../docs/09-conventions.md) · [docs/10](../../docs/10-linting.md) |
+| **Rule ids** (lint plugin + checker)                | [references/rules.md](references/rules.md) (generated)         | [docs/12](../../docs/12-conventions.md) · [docs/13](../../docs/13-linting.md) |
 
-Assertions in depth: [docs/05-assertions.md](../../docs/05-assertions.md). Services & infra: [docs/08-services.md](../../docs/08-services.md).
+Assertions in depth: [docs/08-assertions.md](../../docs/08-assertions.md). Services & infra: [docs/11-services.md](../../docs/11-services.md).
 
 ## Docs (canonical, in-repo)
 

@@ -1,4 +1,4 @@
-[error] specs/widget/builds.spec.yaml:1: description: ends with a period — a title is a fragment, not a sentence (j5-spec-description — see docs/10-linting.md)
-[error] specs/widget/builds.spec.yaml:1: description: starts with a capital — a title is lowercase prose (j5-spec-description — see docs/10-linting.md)
+[error] specs/widget/builds.spec.yaml:1: description: ends with a period — a title is a fragment, not a sentence (j5-spec-description — see docs/13-linting.md)
+[error] specs/widget/builds.spec.yaml:1: description: starts with a capital — a title is lowercase prose (j5-spec-description — see docs/13-linting.md)
 
 conventions checker: 2 error(s) found under {{workdir}}

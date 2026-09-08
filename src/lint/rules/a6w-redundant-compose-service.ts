@@ -50,7 +50,7 @@ export const a6wRedundantComposeService: LintRule = {
         docs: RULE_DOCS['a6w-redundant-compose-service'],
         messages: {
             redundant:
-                'composeService: "{{name}}" is redundant — the key "{{key}}" already binds to it (exact name or kebab-case derivation, A6 — see docs/10-linting.md).',
+                'composeService: "{{name}}" is redundant — the key "{{key}}" already binds to it (exact name or kebab-case derivation, A6 — see docs/13-linting.md).',
         },
         type: 'suggestion',
     },

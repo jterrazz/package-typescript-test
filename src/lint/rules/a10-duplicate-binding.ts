@@ -66,7 +66,7 @@ export const a10DuplicateBinding: LintRule = {
         docs: RULE_DOCS['a10-duplicate-binding'],
         messages: {
             duplicate:
-                'Service keys "{{first}}" and "{{key}}" both bind to compose service "{{binding}}" — one shadows the other; rename a key or set distinct composeService values (A10 — see docs/10-linting.md).',
+                'Service keys "{{first}}" and "{{key}}" both bind to compose service "{{binding}}" — one shadows the other; rename a key or set distinct composeService values (A10 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

@@ -43,7 +43,7 @@ export const w2wUserFacingElements: LintRule = {
         docs: RULE_DOCS['w2w-user-facing-elements'],
         messages: {
             testIdElement:
-                'Prefer a user-facing element (button, link, field, heading, content) over testId() — the escape hatch hides what the user actually sees (W2 — see docs/10-linting.md).',
+                'Prefer a user-facing element (button, link, field, heading, content) over testId() — the escape hatch hides what the user actually sees (W2 — see docs/13-linting.md).',
         },
         type: 'suggestion',
     },

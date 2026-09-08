@@ -1,3 +1,3 @@
-[error] specs/widget/widget.test.ts:7: fixture "../gadget/_fixtures/gadget-stub/" reaches outside specs/widget/_fixtures — a leaf's ground sits beside it; ground several leaves share goes to the $FIXTURES pool at specs/_fixtures (C15 — see docs/10-linting.md)
+[error] specs/widget/widget.test.ts:7: fixture "../gadget/_fixtures/gadget-stub/" reaches outside specs/widget/_fixtures — a leaf's ground sits beside it; ground several leaves share goes to the $FIXTURES pool at specs/_fixtures (C15 — see docs/13-linting.md)
 
 conventions checker: 1 error(s) found under {{workdir}}

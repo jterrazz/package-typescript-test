@@ -31,7 +31,7 @@ export const a1SpecificationFile: LintRule = {
         docs: RULE_DOCS['a1-specification-file'],
         messages: {
             outsideSpecification:
-                'specification.{{member}}() must be called from a `*.specification.ts` file under specs/ (A1 — see docs/10-linting.md).',
+                'specification.{{member}}() must be called from a `*.specification.ts` file under specs/ (A1 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

@@ -28,7 +28,7 @@ export const f5FixturesOnlyFromTests: LintRule = {
         docs: RULE_DOCS['f5-fixtures-only-from-tests'],
         messages: {
             fixturesImport:
-                'A *.fixtures.ts module ("{{source}}") is only importable from *.test.ts files (F5 — see docs/10-linting.md).',
+                'A *.fixtures.ts module ("{{source}}") is only importable from *.test.ts files (F5 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

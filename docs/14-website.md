@@ -1,8 +1,8 @@
-# 11 — Website specs (`specification.website`)
+# 14 — Website specs (`specification.website`)
 
 `specification.website()` tests a rendered website — its raw HTTP surface (redirects, robots.txt, headers) and its rendered surface (title, head metadata, JSON-LD, console, and full user scenarios) — through a real chromium instance. It starts the site itself, or targets one already running.
 
-Use it when the subject under test is a browser-rendered page. For a JSON/HTTP API surface use [api](02-api.md); for a binary use [cli](04-cli.md).
+Use it when the subject under test is a browser-rendered page. For a JSON/HTTP API surface use [api](05-api.md); for a binary use [cli](07-cli.md).
 
 ## Creating the runner
 
@@ -46,7 +46,7 @@ export const { cleanup, website } = await specification.website({
 | `port`         | Fixed port. Default: a free OS-assigned port, injected as `PORT`                                   |
 | `timeout`      | Readiness budget in milliseconds. Default 30 000                                                   |
 
-The chosen port is injected as `PORT` — the command reads it the same way it would in production. If the process never answers on `ready` within `timeout`, or exits first, `specification.website()` fails with the command's captured output attached. On teardown the child is terminated by process group (SIGTERM, escalating to SIGKILL after a 2 s grace) — the same escalation as the [cli](04-cli.md) exec adapter, so a framework's own child processes don't outlive the run.
+The chosen port is injected as `PORT` — the command reads it the same way it would in production. If the process never answers on `ready` within `timeout`, or exits first, `specification.website()` fails with the command's captured output attached. On teardown the child is terminated by process group (SIGTERM, escalating to SIGKILL after a 2 s grace) — the same escalation as the [cli](07-cli.md) exec adapter, so a framework's own child processes don't outlive the run.
 
 The handle destructures to `{ website, cleanup, url }` (rule A3) — no `docker`, no `orchestrator`: a browser is not a container. `url` is the resolved base URL — the one the server started on, or the `url` option with its trailing slash trimmed.
 
@@ -147,7 +147,7 @@ Elements are **user-facing by construction** (rule W2) — there is no CSS/XPath
 | `content(text)` | any element containing the text                  |
 | `testId(id)`    | `data-testid` — the escape hatch (rule W2 warns) |
 
-The vocabulary is shared with the mobile facet — `button`, `field`, `content`, `testId`, `within` work identically in an `.open()` scenario ([12 — Mobile specs](12-mobile.md)); the landmarks below are website-only.
+The vocabulary is shared with the mobile facet — `button`, `field`, `content`, `testId`, `within` work identically in an `.open()` scenario ([15 — Mobile specs](15-mobile.md)); the landmarks below are website-only.
 
 ## Designating exactly one element
 
@@ -169,7 +169,7 @@ Disambiguate with one of:
   • exact name     link("Articles", { exact: true })   [leaves 2 of 3]
   • other element  a heading(), button() or field() may name one thing where this does not
 
-Docs: docs/11-website.md#designating-exactly-one-element (CONVENTIONS W3)
+Docs: docs/14-website.md#designating-exactly-one-element (CONVENTIONS W3)
 ```
 
 Taking "the first match" is the failure this rule exists to prevent: the spec stays green while the visitor acts on a different element, and nothing ever reports it. Ambiguity is an authoring mistake, not something DOM order should arbitrate.
@@ -324,7 +324,7 @@ afterAll(cleanup);
 
 `backend` requires `server` mode — with `url` it refuses (the type already forbids the combination): a deployed site cannot be pointed at a local stub. The **ownership boundary**: the framework owns the server child, so it injects the env var itself — that is the whole wiring.
 
-What the stub serves is declared per chain, as [contracts](07-contracts.md) — the feature's `contracts/` facade, exactly the form `api`/`jobs` use:
+What the stub serves is declared per chain, as [contracts](10-contracts.md) — the feature's `contracts/` facade, exactly the form `api`/`jobs` use:
 
 ```typescript
 import newsroom from './contracts/newsroom.contracts.js';
@@ -416,4 +416,4 @@ No `_seeds/` or `_requests/` — `specification.website()` has no `services` opt
 
 ## Related
 
-[01 — Getting started](01-getting-started.md) · [05 — Assertions](05-assertions.md) · [06 — Tokens](06-tokens.md) · [12 — Mobile specs](12-mobile.md)
+[02 — Developing](02-developing.md) · [08 — Assertions](08-assertions.md) · [09 — Tokens](09-tokens.md) · [15 — Mobile specs](15-mobile.md)

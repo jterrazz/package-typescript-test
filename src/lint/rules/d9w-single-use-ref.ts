@@ -118,7 +118,7 @@ export const d9wSingleUseRef: LintRule = {
         docs: RULE_DOCS['d9w-single-use-ref'],
         messages: {
             singleUse:
-                'Capture ref "{{ref}}" is used only once in this spec — a ref earns its name by asserting equality across occurrences; use a plain matcher instead (D9 — see docs/10-linting.md).',
+                'Capture ref "{{ref}}" is used only once in this spec — a ref earns its name by asserting equality across occurrences; use a plain matcher instead (D9 — see docs/13-linting.md).',
         },
         type: 'suggestion',
     },

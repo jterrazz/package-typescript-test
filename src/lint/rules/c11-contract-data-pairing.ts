@@ -61,7 +61,7 @@ export const c11ContractDataPairing: LintRule = {
     meta: {
         docs: RULE_DOCS['c11-contract-data-pairing'],
         messages: {
-            orphan: 'contracts/{{provider}}/{{entry}} has no owning contract — data pairs with the sibling {{owner}} (stem = name up to the first dot) (C11 — see docs/10-linting.md).',
+            orphan: 'contracts/{{provider}}/{{entry}} has no owning contract — data pairs with the sibling {{owner}} (stem = name up to the first dot) (C11 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

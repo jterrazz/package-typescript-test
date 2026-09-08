@@ -164,21 +164,21 @@ export const c1DomainStructure: LintRule = {
         docs: RULE_DOCS['c1-domain-structure'],
         messages: {
             specInGround:
-                'A spec must not live under "{{ground}}/" — a leading underscore marks GROUND (what the specs of a row stand on: _fixtures/, _expected/, _requests/, _seeds/), never a domain (C1 — see docs/10-linting.md). Ground that is CODE keeps its own unit test: `<module>.test.ts` NEXT to the `<module>.ts` it tests (I2), and nothing else.',
+                'A spec must not live under "{{ground}}/" — a leading underscore marks GROUND (what the specs of a row stand on: _fixtures/, _expected/, _requests/, _seeds/), never a domain (C1 — see docs/13-linting.md). Ground that is CODE keeps its own unit test: `<module>.test.ts` NEXT to the `<module>.ts` it tests (I2), and nothing else.',
             specNotAtFacetRoot:
-                'A `*.specification.ts` must sit at the facet root: `specs/<facet>/<name>.specification.ts` (C1 — see docs/10-linting.md).',
+                'A `*.specification.ts` must sit at the facet root: `specs/<facet>/<name>.specification.ts` (C1 — see docs/13-linting.md).',
             testAtFacetRoot:
-                'A `*.test.ts` must live in a domain folder: `specs/<facet>/<domain>/<aspect>.test.ts` — tests directly at the facet root are forbidden (C1 — see docs/10-linting.md).',
+                'A `*.test.ts` must live in a domain folder: `specs/<facet>/<domain>/<aspect>.test.ts` — tests directly at the facet root are forbidden (C1 — see docs/13-linting.md).',
             testAtSpecsRoot:
-                'A `*.test.ts` must live in a directory under specs/ — with `depth: "mirror"` the tree mirrors a structure, and the specs root mirrors nothing (C1 — see docs/10-linting.md).',
+                'A `*.test.ts` must live in a directory under specs/ — with `depth: "mirror"` the tree mirrors a structure, and the specs root mirrors nothing (C1 — see docs/13-linting.md).',
             testNotMirroringDirectory:
-                'A `*.test.ts` must be named after the directory holding it — `{{directory}}/{{directory}}.test.ts` — with `depth: "mirror"` (C1 — see docs/10-linting.md).',
+                'A `*.test.ts` must be named after the directory holding it — `{{directory}}/{{directory}}.test.ts` — with `depth: "mirror"` (C1 — see docs/13-linting.md).',
             testOutsideFacet:
-                'A `*.test.ts` must live in a facet folder — `specs/<facet>/<aspect>.test.ts`, or one domain deeper: with `depth: "facet"` the specs root holds facets, not tests (C1 — see docs/10-linting.md).',
+                'A `*.test.ts` must live in a facet folder — `specs/<facet>/<aspect>.test.ts`, or one domain deeper: with `depth: "facet"` the specs root holds facets, not tests (C1 — see docs/13-linting.md).',
             testTooDeep:
-                'A `*.test.ts` must sit at facet/domain depth: `specs/<facet>/<domain>/<aspect>.test.ts` — no deeper nesting (C1 — see docs/10-linting.md).',
+                'A `*.test.ts` must sit at facet/domain depth: `specs/<facet>/<domain>/<aspect>.test.ts` — no deeper nesting (C1 — see docs/13-linting.md).',
             testTooDeepForFacet:
-                'A `*.test.ts` must sit at the facet root or one domain folder down — `specs/<facet>/<aspect>.test.ts` or `specs/<facet>/<domain>/<aspect>.test.ts`: with `depth: "facet"` nothing nests deeper (C1 — see docs/10-linting.md).',
+                'A `*.test.ts` must sit at the facet root or one domain folder down — `specs/<facet>/<aspect>.test.ts` or `specs/<facet>/<domain>/<aspect>.test.ts`: with `depth: "facet"` nothing nests deeper (C1 — see docs/13-linting.md).',
         },
         schema: [
             {

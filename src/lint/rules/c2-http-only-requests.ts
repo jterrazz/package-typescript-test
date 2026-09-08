@@ -36,7 +36,7 @@ export const c2HttpOnlyRequests: LintRule = {
         docs: RULE_DOCS['c2-http-only-requests'],
         messages: {
             notHttp:
-                '_requests/{{entry}} is not a .http file — _requests/ contains only complete .http request files (C2 — see docs/10-linting.md).',
+                '_requests/{{entry}} is not a .http file — _requests/ contains only complete .http request files (C2 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

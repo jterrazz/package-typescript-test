@@ -1,4 +1,4 @@
-[error] specs/widget/builds.spec.yaml:3: env: "frozn" is not a registered env set — registered: frozen (c8-spec-registered-name — see docs/10-linting.md)
-[error] specs/widget/builds.spec.yaml:5: serve: "dashbord" is not a registered server — registered: api (c8-spec-registered-name — see docs/10-linting.md)
+[error] specs/widget/builds.spec.yaml:3: env: "frozn" is not a registered env set — registered: frozen (c8-spec-registered-name — see docs/13-linting.md)
+[error] specs/widget/builds.spec.yaml:5: serve: "dashbord" is not a registered server — registered: api (c8-spec-registered-name — see docs/13-linting.md)
 
 conventions checker: 2 error(s) found under {{workdir}}

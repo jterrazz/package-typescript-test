@@ -1,4 +1,4 @@
-[error] specs/_fixtures/orphan.sql: dead pool fixture — no spec under specs references $FIXTURES/orphan.sql (C9 — see docs/10-linting.md)
-[error] specs/_fixtures/used-app: only specs/widget reaches for this pool fixture — the pool is what SEVERAL leaves share; move it to specs/widget/_fixtures/used-app and reference it as 'used-app' (C14 — see docs/10-linting.md, or run the checker with --fix)
+[error] specs/_fixtures/orphan.sql: dead pool fixture — no spec under specs references $FIXTURES/orphan.sql (C9 — see docs/13-linting.md)
+[error] specs/_fixtures/used-app: only specs/widget reaches for this pool fixture — the pool is what SEVERAL leaves share; move it to specs/widget/_fixtures/used-app and reference it as 'used-app' (C14 — see docs/13-linting.md, or run the checker with --fix)
 
 conventions checker: 2 error(s) found under {{workdir}}

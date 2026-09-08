@@ -1,8 +1,8 @@
-# 12 — Mobile specs (`specification.mobile`)
+# 15 — Mobile specs (`specification.mobile`)
 
 `specification.mobile()` tests a native app on the iOS simulator — its screens (the accessibility tree a user's assistive tech sees) and its flows (tap, fill, see) — through a real XCUITest session driven by appium. It resolves and boots the simulator itself, and starts the appium server from the caller project.
 
-Use it when the subject under test is an installed native app. For a browser-rendered page use [website](11-website.md); for a JSON/HTTP API surface use [api](02-api.md).
+Use it when the subject under test is an installed native app. For a browser-rendered page use [website](14-website.md); for a JSON/HTTP API surface use [api](05-api.md).
 
 ## Creating the runner
 
@@ -39,7 +39,7 @@ afterAll(cleanup);
 
 Resolution refuses rather than guesses: zero matches and several matches both fail with the full `simctl` device listing, so the fix never needs an Xcode round-trip. A shut-down simulator is booted (`simctl boot` + `bootstatus`); an already-booted one is reused as-is.
 
-The appium server is spawned from the caller project's `node_modules/.bin/appium` on a free port and polled on `/status` until ready. On teardown the driver session ends and the server process group is terminated (SIGTERM, escalating to SIGKILL after a 2 s grace) — the same escalation as the [website](11-website.md) serve adapter.
+The appium server is spawned from the caller project's `node_modules/.bin/appium` on a free port and polled on `/status` until ready. On teardown the driver session ends and the server process group is terminated (SIGTERM, escalating to SIGKILL after a 2 s grace) — the same escalation as the [website](14-website.md) serve adapter.
 
 The handle destructures to `{ mobile, cleanup, udid }` (rule A3) — `udid` is the resolved simulator, handy for shelling out to `simctl` in a debugging session. With the `backend` option it additionally carries `backendUrl`.
 
@@ -71,7 +71,7 @@ Raise it to the slowest **honest** path and no further: the timeout is what turn
 
 ## Declared backend
 
-A native app usually talks to an API. The `backend` option starts a small **stub backend** (plain `node:http`, no extra dependency) with the runner; what it serves is declared per chain, as [contracts](07-contracts.md) — the feature's `contracts/` facade, exactly the form `api`/`jobs` use:
+A native app usually talks to an API. The `backend` option starts a small **stub backend** (plain `node:http`, no extra dependency) with the runner; what it serves is declared per chain, as [contracts](10-contracts.md) — the feature's `contracts/` facade, exactly the form `api`/`jobs` use:
 
 ```typescript
 // specs/mobile/mobile.specification.ts
@@ -103,7 +103,7 @@ test('renders the events feed from the declared backend', async () => {
 
 **The ownership boundary.** The framework owns the simulator and the appium server — it does NOT own the JS bundler: Metro belongs to the caller's repo, exactly like `next build` belongs to a website's. So nothing is injected anywhere; the handle exposes `backendUrl` and **the caller wires it into its own bundler env** (e.g. `EXPO_PUBLIC_API_URL=<backendUrl> npx expo start`). This is why `port` exists: Metro inlines `EXPO_PUBLIC_*` values at bundle-serve time, and a stable port lets a warm Metro survive between runs instead of re-bundling against a fresh URL.
 
-The stub behaves exactly as on the website facet ([11 — Website specs](11-website.md#declared-backend)): it **resets between chains** (one chain = one terminal action); selection is the shared queue (first non-exhausted match wins, no `times` = unlimited); a request matching no declared contract is answered **501 and recorded**, and the `.open()` then **throws** an error enumerating every unmatched request (method, path, count) — screenshots and other failure evidence are captured first, as always. A chain with zero contracts leaves the stub unguarded.
+The stub behaves exactly as on the website facet ([14 — Website specs](14-website.md#declared-backend)): it **resets between chains** (one chain = one terminal action); selection is the shared queue (first non-exhausted match wins, no `times` = unlimited); a request matching no declared contract is answered **501 and recorded**, and the `.open()` then **throws** an error enumerating every unmatched request (method, path, count) — screenshots and other failure evidence are captured first, as always. A chain with zero contracts leaves the stub unguarded.
 
 ## One terminal action: `.open(deepLink?, scenario?)`
 
@@ -184,7 +184,7 @@ Disambiguate with one of:
   • test id        testId("event-1-bookmark")   [also here: event-2-bookmark]
   • other element  a button() or field() may name one thing where this does not
 
-Docs: docs/12-mobile.md#designating-exactly-one-element (CONVENTIONS W3)
+Docs: docs/15-mobile.md#designating-exactly-one-element (CONVENTIONS W3)
 ```
 
 ### `within(scope, target)` — scoping without landmarks
@@ -240,7 +240,7 @@ test('renders the events feed', async () => {
 });
 ```
 
-The tree describes the **whole mounted hierarchy**, including rows below the fold; `result.content` carries only what is visible. Volatile parts (dates, counters) are covered by the usual `{{token}}` grammar ([06 — Tokens](06-tokens.md)); generate with `TEST_UPDATE=1`.
+The tree describes the **whole mounted hierarchy**, including rows below the fold; `result.content` carries only what is visible. Volatile parts (dates, counters) are covered by the usual `{{token}}` grammar ([09 — Tokens](09-tokens.md)); generate with `TEST_UPDATE=1`.
 
 ## Evidence on failure
 
@@ -292,4 +292,4 @@ No `_seeds/` or `_requests/` — `specification.mobile()` has no `services` opti
 
 ## Related
 
-[01 — Getting started](01-getting-started.md) · [05 — Assertions](05-assertions.md) · [06 — Tokens](06-tokens.md) · [11 — Website specs](11-website.md)
+[02 — Developing](02-developing.md) · [08 — Assertions](08-assertions.md) · [09 — Tokens](09-tokens.md) · [14 — Website specs](14-website.md)

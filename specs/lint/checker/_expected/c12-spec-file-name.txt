@@ -1,3 +1,3 @@
-[error] specs/rm/rm.spec.yaml:1: "rm.spec.yaml" repeats its directory "rm/" — name what this case proves, not where it sits (c12-spec-file-name — see docs/10-linting.md)
+[error] specs/rm/rm.spec.yaml:1: "rm.spec.yaml" repeats its directory "rm/" — name what this case proves, not where it sits (c12-spec-file-name — see docs/13-linting.md)
 
 conventions checker: 1 error(s) found under {{workdir}}

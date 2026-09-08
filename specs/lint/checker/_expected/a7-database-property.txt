@@ -1,3 +1,3 @@
-[error] specs/widget/widget.test.ts:8: .seed() must pass { database } — 2 SQL databases are declared (A7 — see docs/10-linting.md)
+[error] specs/widget/widget.test.ts:8: .seed() must pass { database } — 2 SQL databases are declared (A7 — see docs/13-linting.md)
 
 conventions checker: 1 error(s) found under {{workdir}}

@@ -1,4 +1,4 @@
-# 08 — Services: databases, caches, and the compose file
+# 11 — Services: databases, caches, and the compose file
 
 Infrastructure is declared as a **named record** of service factories on the runner. The record keys are your test vocabulary — they name the service in `.seed()` / `.table()` targeting, they type the `server`/`jobs` factory parameters, and they bind to the compose file. `docker/compose.test.yaml` is the single source of truth for what actually runs (rule G1).
 
@@ -50,7 +50,7 @@ export const { api, cleanup } = await specification.api({
     }
     ```
 
-In CLI mode, the record additionally drives env injection into the child process: `<KEY>_URL` per service — the key uppercased to **CONSTANT_CASE** at camelCase boundaries (`analyticsDb` → `ANALYTICS_DB_URL`) — plus `DATABASE_URL` / `REDIS_URL` when unambiguous (rule B6 — see [CLI specs](04-cli.md#auto-injected-connection-urls-rule-b6)).
+In CLI mode, the record additionally drives env injection into the child process: `<KEY>_URL` per service — the key uppercased to **CONSTANT_CASE** at camelCase boundaries (`analyticsDb` → `ANALYTICS_DB_URL`) — plus `DATABASE_URL` / `REDIS_URL` when unambiguous (rule B6 — see [CLI specs](07-cli.md#auto-injected-connection-urls-rule-b6)).
 
 ### The `database:` rule (A7)
 
@@ -117,7 +117,7 @@ export const { cli, cleanup } = await specification.cli('shoply', {
 
 ### Where the template lives
 
-The template is a **project** artefact: `<root>/.artifacts/vitest/sqlite/template-<sha8>.sqlite`, under the root A9 discovered ([above](#root-auto-discovery-rule-a9)) and covered by the same `.gitignore` line as everything else in `.artifacts/` ([01 — Getting started](01-getting-started.md#artefacts-live-under-artifacts)).
+The template is a **project** artefact: `<root>/.artifacts/vitest/sqlite/template-<sha8>.sqlite`, under the root A9 discovered ([above](#root-auto-discovery-rule-a9)) and covered by the same `.gitignore` line as everything else in `.artifacts/` ([02 — Developing](02-developing.md#artefacts-live-under-artifacts)).
 
 It used to live in the machine-global OS tmpdir, where two checkouts of one repository shared a single file: whichever ran first built it, the other silently inherited that schema, and a branch that changed the schema poisoned the branch beside it. A path under the project root cannot be reached from another checkout at all. Deleting `.artifacts/` is how you force a cold rebuild.
 
@@ -141,4 +141,4 @@ Two more properties fall out of it: the winner builds on a private path and **re
 
 ## Related
 
-[02 — API specs](02-api.md) · [03 — Jobs specs](03-jobs.md) · [04 — CLI specs](04-cli.md) · [09 — Conventions](09-conventions.md)
+[05 — API specs](05-api.md) · [06 — Jobs specs](06-jobs.md) · [07 — CLI specs](07-cli.md) · [12 — Conventions](12-conventions.md)

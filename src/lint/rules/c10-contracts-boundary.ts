@@ -33,7 +33,7 @@ export const c10ContractsBoundary: LintRule = {
         docs: RULE_DOCS['c10-contracts-boundary'],
         messages: {
             internal:
-                'Import "{{source}}" reaches into a provider folder — only contracts/*.contracts.ts is importable from a test; add a named scenario export there instead (C10 — see docs/10-linting.md).',
+                'Import "{{source}}" reaches into a provider folder — only contracts/*.contracts.ts is importable from a test; add a named scenario export there instead (C10 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

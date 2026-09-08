@@ -1,3 +1,3 @@
-[error] specs/_fixtures/lonely-stub: only specs/widget reaches for this pool fixture — the pool is what SEVERAL leaves share; move it to specs/widget/_fixtures/lonely-stub and reference it as 'lonely-stub' (C14 — see docs/10-linting.md, or run the checker with --fix)
+[error] specs/_fixtures/lonely-stub: only specs/widget reaches for this pool fixture — the pool is what SEVERAL leaves share; move it to specs/widget/_fixtures/lonely-stub and reference it as 'lonely-stub' (C14 — see docs/13-linting.md, or run the checker with --fix)
 
 conventions checker: 1 error(s) found under {{workdir}}

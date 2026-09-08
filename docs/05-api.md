@@ -1,8 +1,8 @@
-# 02 — API specs (`specification.api`)
+# 05 — API specs (`specification.api`)
 
 `specification.api()` tests an HTTP API through real requests. One definition drives two execution modes: **node** (your app runs in-process, services in containers — fastest feedback) and **compose** (the whole stack runs in Docker Compose — end-to-end confidence). The specs are identical in both modes; only `TEST_MODE` changes.
 
-Use it when the subject under test is an HTTP surface. For background pipelines use [jobs](03-jobs.md); for binaries use [cli](04-cli.md).
+Use it when the subject under test is an HTTP surface. For background pipelines use [jobs](06-jobs.md); for binaries use [cli](07-cli.md).
 
 ## Creating the runner
 
@@ -35,7 +35,7 @@ afterAll(cleanup);
 
 | Option     | Required                     | Description                                                                                                                                                                                        |
 | ---------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `services` | yes (if the app needs infra) | Named record of service factories (`postgres()`, `redis()`, `sqlite()`). Keys are your test vocabulary — see [services](08-services.md)                                                            |
+| `services` | yes (if the app needs infra) | Named record of service factories (`postgres()`, `redis()`, `sqlite()`). Keys are your test vocabulary — see [services](11-services.md)                                                            |
 | `server`   | yes in node mode             | `(services) => app` — receives the started services record, fully typed. **Ignored in compose mode** (the app runs inside the stack) (rule A8)                                                     |
 | `mode`     | no — and usually forbidden   | `'node' \| 'compose'`. Priority: param > `TEST_MODE` > `'node'`. Never hardcoded when `server` is defined (rule A5); only mandatory-and-permanent for non-Node apps that cannot provide a `server` |
 | `root`     | no                           | Override for root resolution — reserved for cases where the convention is not enough (rule A9)                                                                                                     |
@@ -57,7 +57,7 @@ Without `root`, the framework walks **up from the specification file** to the **
 
 In both modes the `services` record keys remain the vocabulary for `.seed()` and `result.table()` — `{ database: 'analyticsDb' }` means the same thing whether the database was started by testcontainers or by compose (rule A5/A8).
 
-`docker/compose.test.yaml` is the single source of truth for test infrastructure in both modes: node mode reads each service's image and environment from it; compose mode runs it wholesale. `docker/<service>/init.sql` runs when the corresponding service starts (rule G1). See [services](08-services.md).
+`docker/compose.test.yaml` is the single source of truth for test infrastructure in both modes: node mode reads each service's image and environment from it; compose mode runs it wholesale. `docker/<service>/init.sql` runs when the corresponding service starts (rule G1). See [services](11-services.md).
 
 **App URL discovery (compose mode, as implemented):** the app service is the first service in `docker/compose.test.yaml` declaring a `build:` key (services without `build:` are treated as infrastructure and auto-wired by image type). The framework resolves that service's first `ports:` container port to its host-mapped port and targets `http://localhost:<mapped>`. If no `build:` service with ports exists, `specification.api()` fails with "could not detect app URL from compose".
 
@@ -94,7 +94,7 @@ Location: /users/{{uuid#user}}
 
 - First line: `HTTP/1.1 <status>` — mandatory.
 - Headers are matched as a **subset**: listed headers must match, unlisted headers are unconstrained (rule C3).
-- Body and headers both accept `{{token}}` placeholders, including `#ref` captures — `{{uuid#user}}` above must be the _same_ UUID in the `Location` header and the body. See [tokens](06-tokens.md).
+- Body and headers both accept `{{token}}` placeholders, including `#ref` captures — `{{uuid#user}}` above must be the _same_ UUID in the `Location` header and the body. See [tokens](09-tokens.md).
 
 ## Actions (terminal)
 
@@ -130,10 +130,10 @@ test('returns 404 with a useful body', async () => {
 | `.seed('file.sql')`               | Load `_seeds/file.sql` into the database                                                           |
 | `.seed('file.sql', { database })` | Target a database by its record key — **mandatory with ≥ 2 databases, forbidden with 1** (rule A7) |
 | `.headers({ 'Name': 'value' })`   | Set request headers; repeated calls merge                                                          |
-| `.intercept(contract)`            | Mock an outgoing HTTP call with a declared [contract](07-contracts.md)                             |
+| `.intercept(contract)`            | Mock an outgoing HTTP call with a declared [contract](10-contracts.md)                             |
 | `.intercept(trigger, response)`   | Inline intercept for one-off cases                                                                 |
 
-Contracts are **strict** (rule D7): once a chain declares one, every outgoing request must match a declared, non-exhausted contract or the spec fails with an explicit "Unmatched outgoing HTTP request" error (see [contracts](07-contracts.md#strict-by-construction-rule-d7)). `.intercept()` is **node-only** — a compose-mode runner throws immediately, so keep intercept specs in a node-only vitest project (the `api-stack` project excludes `specs/api/intercepts/**`).
+Contracts are **strict** (rule D7): once a chain declares one, every outgoing request must match a declared, non-exhausted contract or the spec fails with an explicit "Unmatched outgoing HTTP request" error (see [contracts](10-contracts.md#strict-by-construction-rule-d7)). `.intercept()` is **node-only** — a compose-mode runner throws immediately, so keep intercept specs in a node-only vitest project (the `api-stack` project excludes `specs/api/intercepts/**`).
 
 ```typescript
 test('serves french content', async () => {
@@ -170,7 +170,7 @@ The result of an API action exposes read-only accessors (rule D1); all assertion
 | `result.response.body`      | parsed body      | Raw body for native assertions (`toEqual`, `toMatchObject`)                      |
 | `result.table(name, opts?)` | table subject    | Database table — subject for `toMatchRows` / `toBeEmpty` (async, `await expect`) |
 
-`expect(result.response).toMatch('user-created.http')` resolves against `_expected/`, like every other subject (rule D3) — there is no per-subject resolution. The full matcher reference is in [assertions](05-assertions.md).
+`expect(result.response).toMatch('user-created.http')` resolves against `_expected/`, like every other subject (rule D3) — there is no per-subject resolution. The full matcher reference is in [assertions](08-assertions.md).
 
 Beyond the result, the `specification.api()` handle destructures to `{ api, cleanup, docker, orchestrator }`. The `docker(containerId)` reader lazily runs `docker inspect` and returns a `ContainerAccessor` for an arbitrary container id — usable with `await expect(docker(id)).toBeRunning()` and the sync read accessors (`.exists`, `.status`, `.file(path)`, logs). An unknown id yields `exists: false` instead of throwing. (`specification.jobs()` has no `docker` member — jobs never spawn containers.)
 
@@ -258,4 +258,4 @@ test('links the analytics event to the created order', async () => {
 
 ## Related
 
-[03 — Jobs specs](03-jobs.md) · [05 — Assertions](05-assertions.md) · [06 — Tokens](06-tokens.md) · [07 — Contracts](07-contracts.md) · [08 — Services](08-services.md)
+[06 — Jobs specs](06-jobs.md) · [08 — Assertions](08-assertions.md) · [09 — Tokens](09-tokens.md) · [10 — Contracts](10-contracts.md) · [11 — Services](11-services.md)

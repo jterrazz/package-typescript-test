@@ -121,6 +121,6 @@ describe('describeMobileAmbiguity', () => {
 
         // Then - an agent reading the failure can find the full rule
         expect(message).toContain('CONVENTIONS W3');
-        expect(message).toContain('docs/12-mobile.md#designating-exactly-one-element');
+        expect(message).toContain('docs/15-mobile.md#designating-exactly-one-element');
     });
 });

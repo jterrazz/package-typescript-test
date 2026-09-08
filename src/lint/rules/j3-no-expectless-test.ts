@@ -50,7 +50,7 @@ export const j3NoExpectlessTest: LintRule = {
         docs: RULE_DOCS['j3-no-expectless-test'],
         messages: {
             noExpect:
-                'Test has no `expect(…)` — a test must assert something (J3 — see docs/10-linting.md). Use `test.todo` for a pending test.',
+                'Test has no `expect(…)` — a test must assert something (J3 — see docs/13-linting.md). Use `test.todo` for a pending test.',
         },
         type: 'problem',
     },

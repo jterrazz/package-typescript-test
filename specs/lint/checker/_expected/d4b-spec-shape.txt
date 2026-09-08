@@ -1,3 +1,3 @@
-[error] specs/widget/builds.spec.yaml:2: unknown key "when:" in a spec document — known keys: kind, description, fixture, env, serve, runs (D4b — see docs/10-linting.md)
+[error] specs/widget/builds.spec.yaml:2: unknown key "when:" in a spec document — known keys: kind, description, fixture, env, serve, runs (D4b — see docs/13-linting.md)
 
 conventions checker: 1 error(s) found under {{workdir}}

@@ -75,7 +75,7 @@ export const b9wProductCommand: LintRule = {
         docs: RULE_DOCS['b9w-product-command'],
         messages: {
             thirdPartyBinary:
-                'specification.cli() points at a third-party binary in node_modules/.bin — a spec should exercise your product command (cli.exec("check"), …), not the tool underneath (B9 — see docs/10-linting.md). Suppress with a reason if the product genuinely is this binary.',
+                'specification.cli() points at a third-party binary in node_modules/.bin — a spec should exercise your product command (cli.exec("check"), …), not the tool underneath (B9 — see docs/13-linting.md). Suppress with a reason if the product genuinely is this binary.',
         },
         type: 'suggestion',
     },

@@ -55,7 +55,7 @@ export const a3NoDestructureAlias: LintRule = {
         docs: RULE_DOCS['a3-no-destructure-alias'],
         messages: {
             aliased:
-                'Destructure the specification result with its canonical name: `{{key}}`, not `{{key}}: {{alias}}` (A3 — see docs/10-linting.md). Rename at the import site if a different local name is needed.',
+                'Destructure the specification result with its canonical name: `{{key}}`, not `{{key}}: {{alias}}` (A3 — see docs/13-linting.md). Rename at the import site if a different local name is needed.',
         },
         type: 'problem',
     },

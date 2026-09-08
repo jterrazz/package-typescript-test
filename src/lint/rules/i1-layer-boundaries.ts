@@ -139,9 +139,9 @@ export const i1LayerBoundaries: LintRule = {
         docs: RULE_DOCS['i1-layer-boundaries'],
         messages: {
             crossLayer:
-                'Layer "{{layer}}" must not import "{{source}}" — outside the edges its layer map declares (I1 — see docs/10-linting.md).',
+                'Layer "{{layer}}" must not import "{{source}}" — outside the edges its layer map declares (I1 — see docs/13-linting.md).',
             foreignDependency:
-                '"{{source}}" is not a dependency layer "{{layer}}" declares — one layer states the packages it may import (I1 — see docs/10-linting.md).',
+                '"{{source}}" is not a dependency layer "{{layer}}" declares — one layer states the packages it may import (I1 — see docs/13-linting.md).',
         },
         schema: [
             {

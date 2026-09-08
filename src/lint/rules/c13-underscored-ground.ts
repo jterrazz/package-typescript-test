@@ -62,7 +62,7 @@ export const c13UnderscoredGround: LintRule = {
         docs: RULE_DOCS['c13-underscored-ground'],
         messages: {
             notUnderscored:
-                'The directory "{{legacy}}/" is a pre-14 ground name — rename it to "{{ground}}/" (`git mv {{legacy}} {{ground}}`). What a spec stands on carries the underscore; a spec\'s own folder never does, and no resolver reads the un-underscored name (C13 — see docs/10-linting.md).',
+                'The directory "{{legacy}}/" is a pre-14 ground name — rename it to "{{ground}}/" (`git mv {{legacy}} {{ground}}`). What a spec stands on carries the underscore; a spec\'s own folder never does, and no resolver reads the un-underscored name (C13 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

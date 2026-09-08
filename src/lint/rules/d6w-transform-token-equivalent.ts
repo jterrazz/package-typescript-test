@@ -67,7 +67,7 @@ export const d6wTransformTokenEquivalent: LintRule = {
         docs: RULE_DOCS['d6w-transform-token-equivalent'],
         messages: {
             tokenEquivalent:
-                'This transform only rewrites output into known token literals — write the tokens in the _expected/ fixture instead; transform is an escape hatch for uncovered noise (D6 — see docs/10-linting.md).',
+                'This transform only rewrites output into known token literals — write the tokens in the _expected/ fixture instead; transform is an escape hatch for uncovered noise (D6 — see docs/13-linting.md).',
         },
         type: 'suggestion',
     },

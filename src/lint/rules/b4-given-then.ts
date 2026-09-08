@@ -75,9 +75,9 @@ export const b4GivenThen: LintRule = {
         docs: RULE_DOCS['b4-given-then'],
         messages: {
             givenAfterThen:
-                'The `// Given -` marker comes after `// Then -` — Given describes the setup and must precede Then (B4 — see docs/10-linting.md).',
+                'The `// Given -` marker comes after `// Then -` — Given describes the setup and must precede Then (B4 — see docs/13-linting.md).',
             missing:
-                'Test is missing a `// {{marker}} -` comment (B4 — see docs/10-linting.md — every test needs both `// Given -` and `// Then -`).',
+                'Test is missing a `// {{marker}} -` comment (B4 — see docs/13-linting.md — every test needs both `// Given -` and `// Then -`).',
         },
         type: 'problem',
     },

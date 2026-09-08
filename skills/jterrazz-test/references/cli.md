@@ -1,6 +1,6 @@
 # CLI specs — `specification.cli()`
 
-Operative reference. Prose + examples: [docs/04-cli.md](../../docs/04-cli.md). Assertions: [docs/05-assertions.md](../../docs/05-assertions.md). Tokens: [references/tokens.md](tokens.md).
+Operative reference. Prose + examples: [docs/07-cli.md](../../docs/07-cli.md). Assertions: [docs/08-assertions.md](../../docs/08-assertions.md). Tokens: [references/tokens.md](tokens.md).
 
 Runs a command binary against fixture projects in fresh, empty temp directories. Inherently e2e — no node/compose split.
 

@@ -1,1 +1,1 @@
-[warn] specs/widget/_requests/create.http:4: token {{string}} in a _requests/ file — requests are inputs, never matched; tokens are not validated here (D10 — see docs/10-linting.md)
+[warn] specs/widget/_requests/create.http:4: token {{string}} in a _requests/ file — requests are inputs, never matched; tokens are not validated here (D10 — see docs/13-linting.md)

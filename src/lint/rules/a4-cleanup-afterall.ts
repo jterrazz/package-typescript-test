@@ -78,7 +78,7 @@ export const a4CleanupAfterall: LintRule = {
         docs: RULE_DOCS['a4-cleanup-afterall'],
         messages: {
             unregistered:
-                '`cleanup` is destructured but never passed to afterAll — add `afterAll(cleanup)` to the specification file (A4 — see docs/10-linting.md).',
+                '`cleanup` is destructured but never passed to afterAll — add `afterAll(cleanup)` to the specification file (A4 — see docs/13-linting.md).',
         },
         type: 'problem',
     },

@@ -111,7 +111,7 @@ export const d15wStatusOnlyProbe: LintRule = {
         docs: RULE_DOCS['d15w-status-only-probe'],
         messages: {
             statusOnlyProbe:
-                "The test's only assertion(s) are status probes — pin the full response: expect(result.response).toMatch('case.http') (D11 — see docs/10-linting.md).",
+                "The test's only assertion(s) are status probes — pin the full response: expect(result.response).toMatch('case.http') (D11 — see docs/13-linting.md).",
         },
         type: 'suggestion',
     },

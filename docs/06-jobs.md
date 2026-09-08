@@ -1,8 +1,8 @@
-# 03 — Jobs specs (`specification.jobs`)
+# 06 — Jobs specs (`specification.jobs`)
 
 `specification.jobs()` tests background pipelines — cron jobs, queue consumers, nightly reports — by triggering them in-process against real databases and contracted external providers. No HTTP server is involved: the subject under test is _what a job writes_, not what an endpoint returns.
 
-Use it when the behaviour you care about starts with "when the job runs…". If the behaviour starts with an HTTP request, use [api](02-api.md).
+Use it when the behaviour you care about starts with "when the job runs…". If the behaviour starts with an HTTP request, use [api](05-api.md).
 
 ## Creating the runner
 
@@ -27,7 +27,7 @@ afterAll(cleanup);
 
 | Option     | Required                     | Description                                                                                            |
 | ---------- | ---------------------------- | ------------------------------------------------------------------------------------------------------ |
-| `services` | yes (if the jobs need infra) | Named record of service factories — same semantics as [api](02-api.md), see [services](08-services.md) |
+| `services` | yes (if the jobs need infra) | Named record of service factories — same semantics as [api](05-api.md), see [services](11-services.md) |
 | `jobs`     | yes                          | `(services) => JobHandle[]`, or a static array. Each handle is a named, triggerable job (rule A8)      |
 | `root`     | no                           | Root-resolution override, same walk-up rule as everywhere (rule A9)                                    |
 
@@ -62,9 +62,9 @@ test('nightly report classifies, prices and drafts', async () => {
 });
 ```
 
-Everything a pipeline reads from the outside world is declared: seeds set the database state, contracts pin the external providers (OpenAI, Anthropic, arbitrary HTTP — see [contracts](07-contracts.md)). Databases reset at the start of every chain, exactly as for API specs (rules B1, B7).
+Everything a pipeline reads from the outside world is declared: seeds set the database state, contracts pin the external providers (OpenAI, Anthropic, arbitrary HTTP — see [contracts](10-contracts.md)). Databases reset at the start of every chain, exactly as for API specs (rules B1, B7).
 
-Because jobs run in-process by definition, `.intercept()` is always available (there is no compose mode to disable it). It is **strict** (rule D7): once a chain declares one contract, any outgoing request that matches nothing — including one whose matching contracts are all exhausted — fails the spec with an explicit "Unmatched outgoing HTTP request" error naming the method, URL, and every declared route with its consumption state (see [contracts](07-contracts.md#strict-by-construction-rule-d7)). A chain with no contracts is not network-guarded.
+Because jobs run in-process by definition, `.intercept()` is always available (there is no compose mode to disable it). It is **strict** (rule D7): once a chain declares one contract, any outgoing request that matches nothing — including one whose matching contracts are all exhausted — fails the spec with an explicit "Unmatched outgoing HTTP request" error naming the method, URL, and every declared route with its consumption state (see [contracts](10-contracts.md#strict-by-construction-rule-d7)). A chain with no contracts is not network-guarded.
 
 ## Seeding and sequences for pipelines
 
@@ -125,7 +125,7 @@ The three failure families:
 | `openai.timeout()` / `anthropic.timeout()`                             | A provider that never answers within the job's timeout |
 | `openai.malformed('…')`                                                | A 200 whose body violates the provider schema          |
 
-The full builder catalogue lives in [contracts](07-contracts.md).
+The full builder catalogue lives in [contracts](10-contracts.md).
 
 ## Result surface
 
@@ -135,7 +135,7 @@ The full builder catalogue lives in [contracts](07-contracts.md).
 | --------------------------- | ----------------------------------------------------------------------- |
 | `result.table(name, opts?)` | Table subject for `toMatchRows` / `toBeEmpty` — async, `await expect()` |
 
-With ≥ 2 databases, `{ database: 'key' }` is mandatory on every `.seed()` and `.table()`; with one, forbidden (rule A7). See the [assertions reference](05-assertions.md).
+With ≥ 2 databases, `{ database: 'key' }` is mandatory on every `.seed()` and `.table()`; with one, forbidden (rule A7). See the [assertions reference](08-assertions.md).
 
 ## Pitfalls
 
@@ -148,4 +148,4 @@ With ≥ 2 databases, `{ database: 'key' }` is mandatory on every `.seed()` and 
 
 ## Related
 
-[02 — API specs](02-api.md) · [05 — Assertions](05-assertions.md) · [07 — Contracts](07-contracts.md) · [08 — Services](08-services.md)
+[05 — API specs](05-api.md) · [08 — Assertions](08-assertions.md) · [10 — Contracts](10-contracts.md) · [11 — Services](11-services.md)

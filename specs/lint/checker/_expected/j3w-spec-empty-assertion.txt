@@ -1,1 +1,1 @@
-[warn] specs/widget/builds.spec.yaml:6: a stream that is only {{string}} asserts nothing — golden what the command actually printed (j3w-spec-empty-assertion — see docs/10-linting.md)
+[warn] specs/widget/builds.spec.yaml:6: a stream that is only {{string}} asserts nothing — golden what the command actually printed (j3w-spec-empty-assertion — see docs/13-linting.md)

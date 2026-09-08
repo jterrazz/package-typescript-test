@@ -12,12 +12,12 @@ import plugin, { recommendedRules, testing } from './plugin.js';
  * Catalogue meta-test — the docs-as-code contract.
  *
  * `src/lint/manifest.ts` is the single source of truth for the mechanized rule
- * catalogue; `docs/09-conventions.md` is the hand-maintained constitution
- * (principles + non-mechanizable criteria) and `docs/10-linting.md` carries the
+ * catalogue; `docs/12-conventions.md` is the hand-maintained constitution
+ * (principles + non-mechanizable criteria) and `docs/13-linting.md` carries the
  * GENERATED catalogue. This test guards two invariants:
  *
  * - **freshness** — running the generator reproduces the committed
- *   `docs/10-linting.md` catalogue and `skills/jterrazz-test/references/rules.md`
+ *   `docs/13-linting.md` catalogue and `skills/jterrazz-test/references/rules.md`
  *   byte-for-byte;
  * - **completeness** — every shipped rule carries `meta.docs`, and every manifest
  *   entry maps to an implementation (a plugin rule / a checker pass) or a
@@ -47,8 +47,8 @@ const CLI_CONTRACT_SPECS = new Set(['checker-cli', 'kitchen-sink']);
 
 describe('conventions catalogue — generation freshness (meta-test)', () => {
     test('the docs/10 catalogue is byte-identical to a fresh generation', () => {
-        // Given - the committed docs/10-linting.md
-        const committed = read('docs/10-linting.md');
+        // Given - the committed docs/13-linting.md
+        const committed = read('docs/13-linting.md');
 
         // Then - re-splicing the generated catalogue changes nothing (run `npm run docs`)
         expect(spliceCatalog(committed)).toBe(committed);
@@ -172,7 +172,7 @@ describe('conventions catalogue — E2E inventory (meta-test)', () => {
     test('the docs/06 token table matches TOKEN_KINDS exactly', () => {
         // Given - the token reference table's first-column cells (`| `{{kind}}` |`)
         const documented = new Set(
-            read('docs/06-tokens.md')
+            read('docs/09-tokens.md')
                 .split('\n')
                 .map((line) => /^\|\s*`\{\{(?<kind>[a-z0-9]+)\}\}`\s*\|/u.exec(line)?.groups?.kind)
                 .filter((kind): kind is string => kind !== undefined),

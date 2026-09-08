@@ -1,6 +1,6 @@
 # Mobile specs — `specification.mobile()`
 
-Operative reference. Prose + examples: [docs/12-mobile.md](../../docs/12-mobile.md). Assertions: [docs/05-assertions.md](../../docs/05-assertions.md). Tokens: [references/tokens.md](tokens.md).
+Operative reference. Prose + examples: [docs/15-mobile.md](../../docs/15-mobile.md). Assertions: [docs/08-assertions.md](../../docs/08-assertions.md). Tokens: [references/tokens.md](tokens.md).
 
 Tests a native app on the iOS simulator — deep-linked screens and tap/fill/see flows through a real XCUITest session (appium). No services, no seeding, no `mode` — this facet is about a device, not a database.
 

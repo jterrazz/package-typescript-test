@@ -106,7 +106,7 @@ test('creates a user', async () => {
 });
 ```
 
-`{{uuid}}` is a placeholder from the unified [token grammar](06-tokens.md) — the response body must contain _a_ UUID there, whatever its value.
+`{{uuid}}` is a placeholder from the unified [token grammar](09-tokens.md) — the response body must contain _a_ UUID there, whatever its value.
 
 ## First CLI spec
 
@@ -183,7 +183,7 @@ export default defineSpecConfig({
 | `test.testTimeout`               | `30_000`                                | Vitest's 5s never survived a container boot, a `prisma db push` or a `next build`                     |
 | `test.hookTimeout`               | `30_000`                                | Same reason, for the `beforeAll` that starts the infrastructure                                       |
 | `test.exclude`                   | vitest's defaults + `**/_fixtures/**`   | What a spec stands on is an input, never a suite — a repository must not run its own counter-examples |
-| `plugins`                        | `literate()`, when `literate:` is given | Turns every matching `<case>.spec.yaml` into a test file (see [04 — CLI specs](04-cli.md))            |
+| `plugins`                        | `literate()`, when `literate:` is given | Turns every matching `<case>.spec.yaml` into a test file (see [07 — CLI specs](07-cli.md))            |
 
 It deliberately sets **nothing else**. `fileParallelism` is a per-project truth (a container-lifecycle suite is serial, an isolated one is not) and stays yours; so do `reporters`, `environment`, `env`, `globalSetup` and every `include` — a preset that guessed those would be wrong more often than right.
 
@@ -300,4 +300,4 @@ specs/
 
 ## Related
 
-[02 — API specs](02-api.md) · [04 — CLI specs](04-cli.md) · [05 — Assertions](05-assertions.md) · [09 — Conventions](09-conventions.md) · [11 — Website specs](11-website.md) · [12 — Mobile specs](12-mobile.md)
+[05 — API specs](05-api.md) · [07 — CLI specs](07-cli.md) · [08 — Assertions](08-assertions.md) · [12 — Conventions](12-conventions.md) · [14 — Website specs](14-website.md) · [15 — Mobile specs](15-mobile.md)

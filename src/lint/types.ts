@@ -60,7 +60,7 @@ export type Visitor = Record<string, (node: AstNode) => void>;
  * The normative documentation a rule carries — the code is the source of truth
  * for the mechanized catalogue (docs-as-code inversion). Every plugin rule sets
  * `meta.docs` to its {@link RuleDoc} entry from `manifest.ts`; the catalogue
- * generator reads these to (re)write `docs/10-linting.md` and the annex.
+ * generator reads these to (re)write `docs/13-linting.md` and the annex.
  */
 export type RuleDoc = {
     /** Enforcement channel — the four faces the manifest assembles. */
